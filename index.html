@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#F6F9F9;-webkit-font-smoothing:antialiased}
+  *{box-sizing:border-box}
+  a{color:#1F8C90;text-decoration:none}
+  a:hover{color:#2FB4B8}
+  input,textarea,select,button{font-family:inherit}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+
+<div style="font-family:'Source Sans 3',system-ui,sans-serif;font-size:16px;line-height:1.65;color:#122A2C;background:#F6F9F9;min-height:100vh;--pad:56px;--maxw:1220px;--h1:54px;--h2:34px;--h3:22px;--sec:88px">
+
+  <div style="{{ vpVars }}">
+
+    <header style="position:sticky;top:0;z-index:40;background:#122A2C;border-bottom:1px solid rgba(255,255,255,.08)">
+      <div style="width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);display:flex;align-items:center;gap:24px;height:72px">
+        <a href="#" onClick="{{ goHome }}" style="display:flex;align-items:center;flex:none"><img src="assets/logo-aerospacer.png" alt="Aerospacer" style="height:26px;display:block;filter:brightness(1.18)"></a>
+        <nav style="display:{{ navDisplay }};align-items:center;gap:22px;margin-left:auto">
+          <sc-for list="{{ navItems }}" as="it" hint-placeholder-count="6"><a href="#" onClick="{{ it.go }}" style="{{ it.style }}" style-hover="color:#2FB4B8">{{ it.label }}</a></sc-for>
+        </nav>
+        <div style="display:flex;align-items:center;gap:10px;margin-left:auto">
+          <button onClick="{{ goCuenta }}" style="{{ accountStyle }}" style-hover="border-color:#2FB4B8;color:#fff">Mi cuenta</button>
+          <button onClick="{{ openCart }}" style="display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);color:#fff;padding:9px 16px;border-radius:999px;cursor:pointer;font-size:14.5px;font-weight:600" style-hover="background:rgba(47,180,184,.22);border-color:#2FB4B8">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="9" cy="20" r="1.4"></circle><circle cx="18" cy="20" r="1.4"></circle><path d="M2 3h3l3 12h11"></path><path d="M6 7h15l-2 7H8"></path></svg>
+            <span>{{ cartCount }}</span>
+          </button>
+          <button onClick="{{ toggleMenu }}" style="{{ burgerStyle }}" style-hover="border-color:#2FB4B8">
+            <svg width="18" height="18" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"></path></svg>
+          </button>
+        </div>
+      </div>
+      <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#0E2223;border-top:1px solid rgba(255,255,255,.08);padding:10px var(--pad) 18px;display:flex;flex-direction:column;gap:2px">
+          <sc-for list="{{ navItems }}" as="it" hint-placeholder-count="6"><a href="#" onClick="{{ it.go }}" style="color:#E6F2F2;font-size:17px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.06)">{{ it.label }}</a></sc-for>
+          <a href="#" onClick="{{ goCuenta }}" style="color:#E6F2F2;font-size:17px;padding:11px 0">Mi cuenta</a>
+        </div>
+      </sc-if>
+    </header>
+
+    <main>
+
+    <!-- ============ INICIO ============ -->
+    <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+    <div>
+
+      <!-- Variante A: producto en primer plano -->
+      <sc-if value="{{ isA }}" hint-placeholder-val="{{ true }}">
+      <section style="background:#122A2C;color:#fff;padding:var(--sec) 0;position:relative;overflow:hidden">
+        <div style="position:absolute;inset:auto -120px -180px auto;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(47,180,184,.20),transparent 65%)"></div>
+        <div style="width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);display:flex;flex-wrap:wrap;gap:48px;align-items:center;position:relative">
+          <div style="flex:1 1 380px;min-width:0">
+            <div style="display:inline-flex;align-items:center;gap:9px;background:rgba(47,180,184,.16);border:1px solid rgba(47,180,184,.4);color:#7FE0E3;padding:7px 15px;border-radius:999px;font-size:13px;font-weight:600;letter-spacing:.02em">Industria argentina · Patejim</div>
+            <h1 style="font-family:Sora,system-ui,sans-serif;font-weight:600;font-size:var(--h1);line-height:1.06;letter-spacing:-.02em;margin:22px 0 0;text-wrap:pretty">La aerocámara bivalvulada de diseño patentado</h1>
+            <p style="font-size:19px;line-height:1.6;color:#B7CDCE;margin:20px 0 0;max-width:52ch;text-wrap:pretty">Fabricación nacional, válvula de silicona inyectada y visor de válvula patentado. Sello Buen Diseño Argentino 2018. Comprala directo al fabricante o retirala en una farmacia adherida.</p>
+            <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:34px">
+              <button onClick="{{ goTienda }}" style="background:#2FB4B8;color:#062021;border:none;padding:15px 30px;border-radius:999px;font-size:16.5px;font-weight:700;cursor:pointer" style-hover="background:#1F8C90;color:#fff" style-active="transform:translateY(1px)">Comprar ahora</button>
+              <button onClick="{{ goDonde }}" style="background:transparent;color:#7FE0E3;border:1.5px solid #2FB4B8;padding:15px 30px;border-radius:999px;font-size:16.5px;font-weight:700;cursor:pointer" style-hover="background:rgba(47,180,184,.14);color:#fff">Ver farmacias adheridas</button>
+            </div>
+          </div>
+          <div style="flex:1 1 320px;min-width:0;display:flex;justify-content:center">
+            <img src="assets/aerocamara.png" alt="Aerocámara Aerospacer" style="width:100%;max-width:440px;height:auto;filter:drop-shadow(0 30px 50px rgba(0,0,0,.45))">
+          </div>
+        </div>
+      </section>
+      </sc-if>
+
+      <!-- Variante B: dos caminos con igual peso -->
+      <sc-if value="{{ isB }}" hint-placeholder-val="{{ false }}">
+      <section style="background:#fff;padding:var(--sec) 0 0">
+        <div style="width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)">
+          <div style="max-width:22ch;font-family:Sora,system-ui,sans-serif;font-weight:600;font-size:var(--h1);line-height:1.06;letter-spacing:-.02em">Dos formas de conseguir tu Aerospacer</div>
+          <p style="font-size:19px;color:#5B6B6C;margin:20px 0 0;max-width:60ch;text-wrap:pretty">Aerocámaras bivalvuladas de diseño patentado, fabricadas en Argentina por Patejim. Elegí el camino que te quede más cómodo.</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:22px;margin:44px 0 0">
+            <div style="background:#122A2C;color:#fff;border-radius:22px;padding:34px;display:flex;flex-direction:column;gap:14px;min-height:300px" style-hover="transform:translateY(-3px)">
+              <div style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#7FE0E3">Compra directa</div>
+              <div style="font-family:Sora,system-ui,sans-serif;font-weight:600;font-size:var(--h3);line-height:1.25">Tienda online del fabricante</div>
+              <p style="color:#B7CDCE;margin:0;font-size:16px">Envío a todo el país, stock por línea y rango etario, y atención técnica de Patejim.</p>
+              <button onClick="{{ goTienda }}" style="margin-top:auto;align-self:flex-start;background:#2FB4B8;color:#062021;border:none;padding:14px 28px;border-radius:999px;font-size:16px;font-weight:700;cursor:pointer" style-hover="background:#1F8C90;color:#fff">Comprar ahora</button>
+            </div>
+            <div style="background:#F6F9F9;border:1px solid #DDE9E9;border-radius:22px;padding:34px;display:flex;flex-direction:column;gap:14px;min-height:300px" style-hover="transform:translateY(-3px)">
+              <div style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#1F8C90">Farmacias adheridas</div>
+              <div style="font-family:Sora,system-ui,sans-serif;font-weight:600;font-size:var(--h3);line-height:1.25">Retiralo hoy cerca de tu casa</div>
+              <p style="color:#5B6B6C;margin:0;font-size:16px">Más de 50 farmacias adheridas en Buenos Aires, Córdoba, Rosario, Mendoza, La Plata y más ciudades.</p>
+              <button onClick="{{ goDonde }}" style="margin-top:auto;align-self:flex-start;background:transparent;color:#1F8C90;border:1.5px solid #2FB4B8;padding:14px 28px;border-radius:999px;font-size:16px;font-weight:700;cursor:pointer" style-hover="background:#E4F4F4">Ir al mapa</button>
+            </div>
+          </div>
+        </div>
+        <div style="width:100%;max-width:var(--maxw);margin:0 auto;padding:56px var(--pad) var(--sec);display:flex;flex-wrap:wrap;gap:36px;align-items:center;justify-content:center">
+          <img src="assets/aerocamara.png" alt="Aerocámara Aerospacer" style="width:min(100%,340px);height:auto">
+          <div style="display:flex;gap:28px;flex-wrap:wrap">
+            <div style="text-align:center;width:130px"><div style="width:74px;height:74px;border-radius:50%;background:#E4F4F4;color:#1F8C90;display:flex;align-items:center;justify-content:center;font-family:Sora,sans-serif;font-weight:700;font-size:26px;margin:0 auto 12px">0</div><div style="font-weight:600;font-size:15px">Desperdicio</div></div>
+            <div style="text-align:center;width:130px"><div style="width:74px;height:74px;border-radius:50%;background:#E4F4F4;color:#1F8C90;display:flex;align-items:center;justify-content:center;font-family:Sora,sans-serif;font-weight:700;font-size:26px;margin:0 auto 12px">1</div><div style="font-weight:600;font-size:15px">Disparo</div></div>
+            <div style="text-align:center;width:130px"><div style="width:74px;height:74px;border-radius:50%;background:#E4F4F4;color:#1F8C90;display:flex;align-items:center;justify-content:center;font-family:Sora,sans-serif;font-weight:700;font-size:18px;margin:0 auto 12px">2018</div><div style="font-weight:600;font-size:15px">Sello Buen Diseño</div></div>
+          </div>
+        </div>
+      </section>
+      </sc-if>
+
+      <!-- Variante C: editorial con dato -->
+      <sc-if value="{{ isC }}" hint-placeholder-val="{{ false }}">
+      <section style="background:#fff;padding:var(--sec) 0 0">
+        <div style="width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)">
+          <div style="display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;justify-content:space-between">
+            <h1 style="font-family:Sora,system-ui,sans-serif;font-weight:600;font-size:var(--h1);line-height:1.02;letter-spacing:-.03em;margin:0;max-width:16ch">Una sola vez.<br>Un solo disparo.</h1>
+            <p style="color:#5B6B6C;margin:0;max-width:38ch;font-size:17.5px;text-wrap:pretty">La aerocámara bivalvulada Aerospacer aprovecha la dosis completa del inhalador. Diseño patentado, fabricación argentina.</p>
+          </div>
+          <div style="margin-top:48px;border-top:1px solid #E3EDED;border-bottom:1px solid #E3EDED;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr))">
+            <div style="padding:26px 20px;border-right:1px solid #E3EDED;display:flex;align-items:center;gap:14px"><div style="width:52px;height:52px;flex:none;border-radius:50%;background:#E4F4F4;color:#1F8C90;display:flex;align-items:center;justify-content:center;font-family:Sora,sans-serif;font-weight:700;font-size:21px">0</div><div style="font-weight:600;font-size:15px;line-height:1.3">Desperdicio<br><span style="color:#5B6B6C;font-weight:400">de medicación</span></div></div>
+            <div style="padding:26px 20px;border-right:1px solid #E3EDED;display:flex;align-items:center;gap:14px"><div style="width:52px;height:52px;flex:none;border-radius:50%;background:#E4F4F4;color:#1F8C90;display:flex;align-items:center;justify-content:center;font-family:Sora,sans-serif;font-weight:700;font-size:21px">1</div><div style="font-weight:600;font-size:15px;line-height:1.3">Disparo<br><span style="color:#5B6B6C;font-weight:400">por aplicación</span></div></div>
+            <div style="padding:26px 20px;border-right:1px solid #E3EDED;display:flex;align-items:center;gap:14px"><div style="width:52px;height:52px;flex:none;border-radius:50%;background:#E4F4F4;color:#1F8C90;display:flex;align-items:center;justify-content:center;font-family:Sora,sans-serif;font-weight:700;font-size:14px">2018</div><div style="font-weight:600;font-size:15px;line-height:1.3">Sello Buen Diseño<br><span style="color:#5B6B6C;font-weight:400">Argentino</span></div></div>
+            <div style="padding:26px 20px;display:flex;align-items:center;gap:14px"><div style="width:52px;height:52px;flex:none;border-radius:50%;background:#E4F4F4;color:#1F8C90;display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"></path></svg></div><div style="font-weight:600;font-size:15px;line-height:1.3">Fabricación<br><span style="color:#5B6B6C;font-weight:400">nacional</span></div></div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:40px;align-items:center;padding:52px 0 var(--sec)">
+            <div style="flex:1 1 300px;min-width:0;background:#F6F9F9;border-radius:26px;padding:30px;display:flex;justify-content:center"><img src="assets/aerocamara.png" alt="Aerocámara Aerospacer" style="width:100%;max-width:360px;height:auto"></div>
+            <div style="flex:1 1 280px;min-width:0;display:flex;flex-direction:column;gap:16px">
+              <div style="font-family:Sora,sans-serif;font-weight:600;font-size:var(--h2);line-height:1.15">Elegí cómo comprarla</div>
+              <p style="color:#5B6B6C;margin:0">Los dos canales son oficiales: la tienda del fabricante y la red de farmacias adheridas.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:12px">
+                <button onClick="{{ goTienda }}" style="background:#2FB4B8;color:#062021;border:none;padding:15px 30px;border-radius:999px;font-size:16.5px;font-weight:700;cursor:pointer" style-hover="background:#1F8C90;color:#fff">Comprar ahora</button>
+                <button onClick="{{ goDonde }}" style="background:transparent;color:#1F8C90;border:1.5px solid #2FB4B8;padding:15px 30px;border-radius:999px;font-size:16.5px;font-weight:700;cursor:pointer" style-hover="background:#E4F4F4">Ir al mapa</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      </sc-if>
+
+      <!-- Categorías destacadas -->
+      <section style="background:#F6F9F9;padding:var(--sec) 0">
+        <div style="width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)">
+          <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:baseline;justify-content:space-between;margin-bottom:34px">
+            <h2 style="font-family:Sora,sans-serif;font-weight:600;font-size:var(--h2);margin:0;letter-spacing:-.015em">Líneas de producto</h2>
+            <a href="#" onClick="{{ goTienda }}" style="font-weight:600">Ver toda la tienda →</a>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:20px">
+            <sc-for list="{{ lineas }}" as="l" hint-placeholder-count="3">
+              <div onClick="{{ l.go }}" style="background:#fff;border:1px solid #E3EDED;border-radius:20px;padding:26px;cursor:pointer;display:flex;flex-direction:column;gap:12px;min-height:250px;transition:box-shadow .18s,transform .18s" style-hover="box-shadow:0 14px 34px rgba(18,42,44,.12);transform:translateY(-3px);border-color:#2FB4B8">
+                <div style="align-self:flex-start;background:#E4F4F4;color:#1F8C90;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:6px 13px;border-radius:999px">{{ l.nombre }}</div>
+                <img src="assets/aerocamara.png" alt="{{ l.nombre }}" style="width:100%;max-width:190px;height:auto;margin:4px 0">
+                <p style="color:#5B6B6C;margin:0;font-size:15.5px">{{ l.desc }}</p>
+                <div style="margin-top:auto;font-weight:700;color:#1F8C90">Ver productos →</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <!-- Conócenos -->
+      <section style="background:#fff;padding:var(--sec) 0">
+        <div style="width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);display:flex;flex-wrap:wrap;gap:48px">
+          <div style="flex:1 1 340px;min-width:0">
+            <div style="font-size:13px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#1F8C90">Conócenos</div>
+            <h2 style="font-family:Sora,sans-serif;font-weight:600;font-size:var(--h2);margin:14px 0 18px;letter-spacing:-.015em">Fabricamos aerocámaras en Argentina</h2>
+            <p style="color:#5B6B6C;margin:0 0 16px;max-width:58ch;text-wrap:pretty">Patejim desarrolla y produce la línea Aerospacer en el país: válvula de silicona inyectada con botón de seguridad, visor de válvula patentado y máscara con reborde anatómico soft. El diseño recibió el Sello Buen Diseño Argentino 2018.</p>
+            <p style="color:#5B6B6C;margin:0 0 26px;max-width:58ch;text-wrap:pretty">Además del producto, publicamos contenido educativo propio sobre el uso y el cuidado correcto del dispositivo.</p>
+            <div style="display:flex;flex-wrap:wrap;gap:12px">
+              <button onClick="{{ goNosotros }}" style="background:transparent;color:#1F8C90;border:1.5px solid #2FB4B8;padding:13px 26px;border-radius:999px;font-weight:700;cursor:pointer;font-size:16px" style-hover="background:#E4F4F4">Conocé más de Patejim</button>
+              <button onClick="{{ goBeneficios }}" style="background:transparent;color:#1F8C90;border:1.5px solid #2FB4B8;padding:13px 26px;border-radius:999px;font-weight:700;cursor:pointer;font-size:16px" style-hover="background:#E4F4F4">Beneficios, usos y cuidado</button>
+            </div>
+          </div>
+          <div style="flex:1 1 260px;min-width:0;display:flex;flex-direction:column;gap:16px">
+            <div style="background:#F6F9F9;border-radius:20px;padding:26px;display:flex;align-items:center;gap:18px">
+              <img src="assets/logo-patejim.png" alt="Patejim" style="height:58px;width:auto">
+              <div style="font-size:15px;color:#5B6B6C">Fabricante de la línea Aerospacer</div>
+            </div>
+            <div style="background:#122A2C;color:#fff;border-radius:20px;padding:26px;display:flex;align-items:center;gap:18px">
+              <div style="width:64px;height:64px;flex:none;border-radius:50%;background:rgba(47,180,184,.18);color:#7FE0E3;display:flex;align-items:center;justify-content:center;font-family:Sora,sans-serif;font-weight:700">2018</div>
+              <div style="font-size:15px;color:#B7CDCE"><b style="color:#fff;display:block;font-size:16.5px">Sello Buen Diseño Argentino</b>Distinción al diseño patentado</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ¿Dónde estamos? -->
+      <section style="background:#122A2C;color:#fff;padding:var(--sec) 0">
+        <div style="width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)">
+          <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:baseline;justify-content:space-between;margin-bottom:30px">
+            <div>
+              <div style="font-size:13px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#7FE0E3">¿Dónde estamos?</div>
+              <h2 style="font-family:Sora,sans-serif;font-weight:600;font-size:var(--h2);margin:14px 0 0;letter-spacing:-.015em">Farmacias adheridas en todo el país</h2>
+            </div>
+            <button onClick="{{ goDonde }}" style="background:#2FB4B8;color:#062021;border:none;padding:14px 28px;border-radius:999px;font-weight:700;cursor:pointer;font-size:16px" style-hover="background:#1F8C90;color:#fff">Ir al mapa</button>
+          </div>
+          <div style="border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.12);background:#F6F9F9;height:380px">
+            <iframe src="map.html" title="Mapa de farmacias adheridas" style="width:100%;height:100%;border:0;display:block"></iframe>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:20px">
+            <sc-for list="{{ ciudades }}" as="c" hint-placeholder-count="8"><span style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);color:#D6E7E7;padding:8px 15px;border-radius:999px;font-size:14.5px">{{ c.nombre }}</span></sc-for>
+          </div>
+        </div>
+      </section>
+    </div>
+    </sc-if>
+
+    <!-- ============ TIENDA ============ -->
+    <sc-if value="{{ isTienda }}" hint-placeholder-val="{{ false }}">
+    <section style="background:#fff;padding:48px 0 var(--sec);min-height:70vh">
+      <div style="width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)">
+        <div style="font-size:14px;color:#5B6B6C"><a href="#" onClick="{{ goHome }}">Inicio</a> / Tienda</div>
+        <h1 style="font-family:Sora,sans-serif;font-weight:600;font-size:var(--h2);margin:12px 0 8px;letter-spacing:-.015em">Aerocámaras Aerospacer</h1>
+        <p style="color:#5B6B6C;margin:0 0 30px">Comprá directo al fabricante. Filtrá por línea de producto y rango etario.</p>
+
+        <div style="display:flex;flex-wrap:wrap;gap:26px;padding:20px 0;border-top:1px solid #E3EDED;border-bottom:1px solid #E3EDED;margin-bottom:30px;align-items:center">
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+            <span style="font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#5B6B6C">Línea</span>
+            <sc-for list="{{ fLineas }}" as="f" hint-placeholder-count="3"><button onClick="{{ f.go }}" style="{{ f.style }}">{{ f.label }}</button></sc-for>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+            <span style="font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#5B6B6C">Rango etario</span>
+            <sc-for list="{{ fEdades }}" as="f" hint-placeholder-count="3"><button onClick="{{ f.go }}" style="{{ f.style }}">{{ f.label }}</button></sc-for>
+          </div>
+          <div style="margin-left:auto;font-size:14.5px;color:#5B6B6C">{{ resultLabel }}</div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,258px),1fr));gap:22px">
+          <sc-for list="{{ productos }}" as="p" hint-placeholder-count="6">
+            <div style="background:#fff;border:1px solid #E3EDED;border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:12px;transition:box-shadow .18s,transform .18s" style-hover="box-shadow:0 14px 34px rgba(18,42,44,.11);transform:translateY(-3px)">
+              <div onClick="{{ p.open }}" style="background:#F6F9F9;border-radius:14px;padding:14px;cursor:pointer;position:relative;display:flex;align-items:center;justify-content:center;min-height:168px">
+                <span style="position:absolute;top:12px;left:12px;background:#E4F4F4;color:#1F8C90;font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:5px 11px;border-radius:999px">{{ p.linea }}</span>
+                <img src="assets/aerocamara.png" alt="{{ p.nombre }}" style="width:100%;max-width:158px;height:auto">
+              </div>
+              <a href="#" onClick="{{ p.open }}" style="font-family:Sora,sans-serif;font-weight:600;font-size:17px;color:#122A2C;line-height:1.3" style-hover="color:#1F8C90">{{ p.nombre }}</a>
+              <div style="font-size:13.5px;color:#5B6B6C">{{ p.edadLabel }}</div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:{{ p.stockColor }}"><span style="width:8px;height:8px;border-radius:50%;background:{{ p.stockColor }};display:inline-block"></span>{{ p.stockLabel }}</div>
+              <div style="font-family:Sora,sans-serif;font-weight:600;font-size:21px;margin-top:auto">{{ p.precio }}</div>
+              <button onClick="{{ p.add }}" disabled="{{ p.agotado }}" style="{{ p.btnStyle }}">{{ p.btnLabel }}</button>
+              <sc-if value="{{ p.agotado }}" hint-placeholder-val="{{ false }}"><a href="#" onClick="{{ goContacto }}" style="font-size:13.5px;text-align:center">Avisarme cuando vuelva a haber stock</a></sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- ============ FICHA DE PRODUCTO ============ -->
+    <sc-if value="{{ isFicha }}" hint-placeholder-val="{{ false }}">
+    <section style="background:#fff;padding:48px 0 var(--sec)">
+      <div style="width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)">
+        <div style="font-size:14px;color:#5B6B6C"><a href="#" onClick="{{ goHome }}">Inicio</a> / <a href="#" onClick="{{ goTienda }}">Tienda</a> / {{ prod.nombre }}</div>
+        <div style="display:flex;flex-wrap:wrap;gap:48px;margin-top:26px">
+          <div style="flex:1 1 340px;min-width:0">
+            <div style="background:#F6F9F9;border-radius:24px;padding:34px;display:flex;align-items:center;justify-content:center;min-height:360px">
+              <img src="assets/aerocamara.png" alt="{{ prod.nombre }}" style="width:100%;max-width:400px;height:auto">
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px">
+              <div style="background:#F6F9F9;border:2px solid #2FB4B8;border-radius:12px;padding:8px;display:flex;align-items:center;justify-content:center;cursor:pointer"><img src="assets/aerocamara.png" alt="" style="width:100%;height:auto"></div>
+              <div style="border:1px solid #E3EDED;border-radius:12px;height:76px;background:repeating-linear-gradient(135deg,#F1F6F6 0 8px,#E7F0F0 8px 16px);display:flex;align-items:center;justify-content:center;padding:6px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:#7C8E8F;cursor:pointer">foto válvula</div>
+              <div style="border:1px solid #E3EDED;border-radius:12px;height:76px;background:repeating-linear-gradient(135deg,#F1F6F6 0 8px,#E7F0F0 8px 16px);display:flex;align-items:center;justify-content:center;padding:6px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:#7C8E8F;cursor:pointer">foto desarmada</div>
+              <div style="border:1px solid #E3EDED;border-radius:12px;height:76px;background:repeating-linear-gradient(135deg,#F1F6F6 0 8px,#E7F0F0 8px 16px);display:flex;align-items:center;justify-content:center;padding:6px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:#7C8E8F;cursor:pointer">foto en uso</div>
+            </div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9AACAD;margin-top:10px">falta: foto indicando las partes del dispositivo · aclarar vencimiento y garantía en la ficha</div>
+          </div>
+          <div style="flex:1 1 320px;min-width:0">
+            <div style="display:inline-block;background:#E4F4F4;color:#1F8C90;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:6px 13px;border-radius:999px">{{ prod.linea }}</div>
+            <h1 style="font-family:Sora,sans-serif;font-weight:600;font-size:var(--h2);margin:16px 0 6px;letter-spacing:-.015em;line-height:1.15">{{ prod.nombre }}</h1>
+            <div style="color:#5B6B6C;font-size:15.5px">{{ prod.edadLabel }}</div>
+            <div style="font-family:Sora,sans-serif;font-weight:700;font-size:34px;margin:22px 0 4px">{{ prod.precio }}</div>
+            <div style="display:flex;align-items:center;gap:8px;font-size:14.5px;font-weight:600;color:{{ prod.stockColor }};margin-bottom:24px"><span style="width:9px;height:9px;border-radius:50%;background:{{ prod.stockColor }};display:inline-block"></span>{{ prod.stockLabel }}</div>
+            <p style="color:#5B6B6C;margin:0 0 26px;max-width:56ch;text-wrap:pretty">Aerocámara bivalvulada de diseño patentado, fabricada en Argentina por Patejim. Aprovecha la dosis completa del inhalador con un solo disparo.</p>
+            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-bottom:14px">
+              <div style="display:flex;align-items:center;border:1px solid #DDE9E9;border-radius:999px;overflow:hidden">
+                <button onClick="{{ decQty }}" style="background:none;border:none;width:46px;height:50px;font-size:20px;color:#1F8C90;cursor:pointer" style-hover="background:#F1F8F8">−</button>
+                <span style="min-width:38px;text-align:center;font-weight:600;font-size:17px">{{ qty }}</span>
+                <button onClick="{{ incQty }}" style="background:none;border:none;width:46px;height:50px;font-size:20px;color:#1F8C90;cursor:pointer" style-hover="background:#F1F8F8">+</button>
+              </div>
+              <button onClick="{{ addProd }}" disabled="{{ prod.agotado }}" style="{{ prod.bigBtnStyle }}">{{ prod.btnLabel }}</button>
+            </div>
+            <sc-if value="{{ prod.agotado }}" hint-placeholder-val="{{ false }}">
+              <div style="background:#FCEDED;border:1px solid #F0C9C9;color:#B33636;border-radius:14px;padding:14px 16px;font-size:15px;margin-bottom:20px">Sin stock por el momento. <a href="#" onClick="{{ goContacto }}" style="color:#B33636;font-weight:700;text-decoration:underline">Avisarme cuando vuelva</a></div>
+            </sc-if>
+            <div style="border-top:1px solid #E3EDED;padding-top:26px">
+              <div style="font-family:Sora,sans-serif;font-weight:600;font-size:var(--h3);margin-bottom:14px">Características técnicas</div>
+              <div style="display:flex;flex-direction:column;gap:11px">
+                <sc-for list="{{ specs }}" as="s" hint-placeholder-count="5">
+                  <div style="display:flex;gap:12px;align-items:flex-start"><span style="width:22px;height:22px;flex:none;border-radius:50%;background:#E4F4F4;color:#1F8C90;display:flex;align-items:center;justify-content:center;margin-top:2px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"></path></svg></span><span style="color:#3C4E4F">{{ s }}</span></div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:56px;background:#122A2C;color:#fff;border-radius:22px;padding:32px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between">
+          <div>
+            <div style="font-family:Sora,sans-serif;font-weight:600;font-size:var(--h3)">Guía de uso en video</div>
+            <p style="color:#B7CDCE;margin:8px 0 0;max-width:52ch">Cómo colocar la máscara, cuántos disparos por aplicación y cómo limpiar el dispositivo.</p>
+          </div>
+          <button onClick="{{ goBeneficios }}" style="background:#2FB4B8;color:#062021;border:none;padding:14px 28px;border-radius:999px;font-weight:700;cursor:pointer;font-size:16px" style-hover="background:#1F8C90;color:#fff">Ver la guía</button>
+        </div>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- ============ NOSOTROS ============ -->
+    <sc-if value="{{ isNosotros }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <section style="background:#F6F9F9;padding:56px 0 var(--sec)">
+        <div style="width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)">
+          <div style="font-size:14px;color:#5B6B6C"><a href="#" onClick="{{ goHome }}">Inicio</a> / Nosotros</div>
+          <div style="font-size:12.5px;font-family:'IBM Plex Mono',monospace;color:#9AACAD;background:#EDF3F3;border:1px solid #DDE9E9;border-radius:10px;padding:9px 14px;display:inline-block;margin:16px 0 0">texto genérico de demostración — reemplazar por la historia real de Patejim</div>
+          <h1 style="font-family:Sora,sans-serif;font-weight:600;font-size:var(--h2);margin:16px 0 14px;letter-spacing:-.02em;max-width:26ch">Fabricamos dispositivos médicos en Argentina desde hace más de dos décadas</h1>
+          <p style="color:#5B6B6C;margin:0 0 14px;max-width:62ch;font-size:17.5px;text-wrap:pretty">Patejim nació con el objetivo de acercar tecnología médica de calidad al mercado argentino, sin depender de la importación. Con el tiempo, ese trabajo derivó en el desarrollo de Aerospacer: una línea de aerocámaras diseñada, pensada y fabricada íntegramente en el país.</p>
+          <p style="color:#5B6B6C;margin:0;max-width:62ch;font-size:17.5px;text-wrap:pretty">Hoy trabajamos junto a profesionales de la salud y familias de pacientes con afecciones respiratorias, y seguimos invirtiendo en diseño propio y en contenido educativo sobre el uso correcto del dispositivo.</p>
+        </div>
+      </section>
+
+      <section style="background:#122A2C;color:#fff;padding:var(--sec) 0">
+        <div style="width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)">
+          <div style="font-size:12.5px;font-family:'IBM Plex Mono',monospace;color:#7FE0E3;margin-bottom:14px">contenido real provisto por el cliente</div>
+          <h2 style="font-family:Sora,sans-serif;font-weight:600;font-size:var(--h2);margin:0 0 34px;letter-spacing:-.015em;max-width:26ch">Aerocámaras Aerospacer son las <span style="color:#7FE0E3">únicas</span> en el mercado de fabricación <span style="color:#7FE0E3">Nacional</span> con desarrollo de diseños patentados</h2>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:28px">
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <sc-for list="{{ nosotrosFeats1 }}" as="f" hint-placeholder-count="3">
+                <div style="display:flex;gap:12px;align-items:flex-start"><span style="width:8px;height:8px;flex:none;border-radius:50%;background:#2FB4B8;margin-top:9px"></span><span style="color:#D6E7E7">{{ f }}</span></div>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <sc-for list="{{ nosotrosFeats2 }}" as="f" hint-placeholder-count="3">
+                <div style="display:flex;gap:12px;align-items:flex-start"><span style="width:8px;height:8px;flex:none;border-radius:50%;background:#2FB4B8;margin-top:9px"></span><span style="color:#D6E7E7">{{ f }}</span></div>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <sc-for list="{{ nosotrosFeats3 }}" as="f" hint-placeholder-count="3">
+                <div style="display:flex;gap:12px;align-items:flex-start"><span style="width:8px;height:8px;flex:none;border-radius:50%;background:#2FB4B8;margin-top:9px"></span><span style="color:#D6E7E7">{{ f }}</span></div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section style="background:#fff;padding:var(--sec) 0">
+        <div style="width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);display:flex;flex-wrap:wrap;gap:24px">
+          <div style="flex:1 1 260px;min-width:0;background:#F6F9F9;border-radius:20px;padding:28px;display:flex;align-items:center;gap:18px">
+            <div style="width:64px;height:64px;flex:none;border-radius:50%;background:#E4F4F4;color:#1F8C90;display:flex;align-items:center;justify-content:center;font-family:Sora,sans-serif;font-weight:700">2018</div>
+            <div style="font-size:15px;color:#5B6B6C"><b style="color:#122A2C;display:block;font-size:16.5px">Sello Buen Diseño Argentino</b>Distinción al diseño patentado</div>
+          </div>
+          <div style="flex:1 1 260px;min-width:0;background:#F6F9F9;border-radius:20px;padding:28px;display:flex;align-items:center;gap:18px">
+            <img src="assets/logo-patejim.png" alt="Patejim" style="height:52px;width:auto">
+            <div style="font-size:15px;color:#5B6B6C">Fabricante de la línea Aerospacer</div>
+          </div>
+        </div>
+      </section>
+    </div>
+    </sc-if>
+
+    <!-- ============ BENEFICIOS, USOS Y CUIDADO ============ -->
+    <sc-if value="{{ isBeneficios }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <section style="background:#F6F9F9;padding:56px 0">
+        <div style="width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)">
+          <div style="font-size:14px;color:#5B6B6C"><a href="#" onClick="{{ goHome }}">Inicio</a> / Beneficios, usos y cuidado</div>
+          <h1 style="font-family:Sora,sans-serif;font-weight:600;font-size:var(--h2);margin:12px 0 10px;letter-spacing:-.02em;max-width:24ch">Qué es una aerocámara bivalvulada</h1>
+          <p style="color:#5B6B6C;margin:0;max-width:62ch;font-size:17.5px;text-wrap:pretty">El uso de Aerocámaras Bivalvuladas en tratamiento de afecciones respiratorias esta <b style="color:#122A2C">ampliamente comprobado</b> en el mundo, dado que <b style="color:#122A2C">aumenta la disponibilidad del medicamento en el pulmón</b>. Aunque espaciadores y aerocámaras son dispositivos que aumentan la distancia entre la boca del paciente y el MDI, solo las aerocámaras con sistema de válvulas permiten que al <b style="color:#122A2C">inhalar se abra la válvula de silicona</b> e ingrese el medicamento a la vía aérea y al exhalar la válvula se cierre <b style="color:#122A2C">impidiendo la perdida de medicación</b> (la cual queda en el cuerpo de la aerocámara en suspensión). Esto colabora con el ahorro del MDI al <b style="color:#122A2C">no tener que repetir varios disparos</b> para completar la dosis.</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:18px;margin-top:38px">
+            <div style="background:#fff;border:1px solid #E3EDED;border-radius:18px;padding:22px;text-align:center"><div style="width:70px;height:70px;border-radius:50%;background:#E4F4F4;color:#1F8C90;display:flex;align-items:center;justify-content:center;font-family:Sora,sans-serif;font-weight:700;font-size:25px;margin:0 auto 12px">0</div><div style="font-weight:600">Desperdicio</div><div style="color:#5B6B6C;font-size:14.5px">de medicación</div></div>
+            <div style="background:#fff;border:1px solid #E3EDED;border-radius:18px;padding:22px;text-align:center"><div style="width:70px;height:70px;border-radius:50%;background:#E4F4F4;color:#1F8C90;display:flex;align-items:center;justify-content:center;font-family:Sora,sans-serif;font-weight:700;font-size:25px;margin:0 auto 12px">1</div><div style="font-weight:600">Disparo</div><div style="color:#5B6B6C;font-size:14.5px">por aplicación</div></div>
+            <div style="background:#fff;border:1px solid #E3EDED;border-radius:18px;padding:22px;text-align:center"><div style="width:70px;height:70px;border-radius:50%;background:#E4F4F4;color:#1F8C90;display:flex;align-items:center;justify-content:center;font-family:Sora,sans-serif;font-weight:700;font-size:25px;margin:0 auto 12px">2</div><div style="font-weight:600">Válvulas</div><div style="color:#5B6B6C;font-size:14.5px">inhalación y exhalación</div></div>
+            <div style="background:#fff;border:1px solid #E3EDED;border-radius:18px;padding:22px;text-align:center"><div style="width:70px;height:70px;border-radius:50%;background:#E4F4F4;color:#1F8C90;display:flex;align-items:center;justify-content:center;font-family:Sora,sans-serif;font-weight:700;font-size:15px;margin:0 auto 12px">2018</div><div style="font-weight:600">Sello Buen Diseño</div><div style="color:#5B6B6C;font-size:14.5px">Argentino</div></div>
+          </div>
+        </div>
+      </section>
+      <section style="background:#fff;padding:var(--sec) 0">
+        <div style="width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);display:flex;flex-wrap:wrap;gap:44px">
+          <div style="flex:1 1 300px;min-width:0">
+            <h2 style="font-family:Sora,sans-serif;font-weight:600;font-size:var(--h3);margin:0 0 18px">Cómo se usa correctamente</h2>
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <sc-for list="{{ uso }}" as="u" hint-placeholder-count="4">
+                <div style="display:flex;gap:14px;align-items:flex-start"><span style="width:30px;height:30px;flex:none;border-radius:50%;background:#122A2C;color:#7FE0E3;display:flex;align-items:center;justify-content:center;font-family:Sora,sans-serif;font-weight:600;font-size:14px">{{ u.n }}</span><span style="color:#3C4E4F">{{ u.t }}</span></div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="flex:1 1 300px;min-width:0">
+            <h2 style="font-family:Sora,sans-serif;font-weight:600;font-size:var(--h3);margin:0 0 18px">Cómo se limpia</h2>
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <sc-for list="{{ limpieza }}" as="u" hint-placeholder-count="4">
+                <div style="display:flex;gap:14px;align-items:flex-start"><span style="width:30px;height:30px;flex:none;border-radius:50%;background:#E4F4F4;color:#1F8C90;display:flex;align-items:center;justify-content:center;font-family:Sora,sans-serif;font-weight:600;font-size:14px">{{ u.n }}</span><span style="color:#3C4E4F">{{ u.t }}</span></div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section style="background:#F6F9F9;padding:var(--sec) 0">
+        <div style="width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)">
+          <h2 style="font-family:Sora,sans-serif;font-weight:600;font-size:var(--h2);margin:0 0 26px;letter-spacing:-.015em">Videos útiles</h2>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));gap:20px">
+            <sc-for list="{{ videos }}" as="v" hint-placeholder-count="5">
+              <div style="background:#fff;border:1px solid #E3EDED;border-radius:18px;overflow:hidden;cursor:pointer;transition:box-shadow .18s,transform .18s" style-hover="box-shadow:0 14px 30px rgba(18,42,44,.11);transform:translateY(-3px)">
+                <div style="height:142px;background:repeating-linear-gradient(135deg,#EDF4F4 0 10px,#E3EDED 10px 20px);display:flex;align-items:center;justify-content:center;position:relative">
+                  <span style="width:54px;height:54px;border-radius:50%;background:#2FB4B8;display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"></path></svg></span>
+                  <span style="position:absolute;bottom:9px;right:11px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:#7C8E8F">video placeholder</span>
+                </div>
+                <div style="padding:16px 18px 18px"><div style="font-weight:600;font-size:16.5px;font-family:Sora,sans-serif">{{ v }}</div><div style="color:#5B6B6C;font-size:14px;margin-top:4px">Guía Aerospacer</div></div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+    </div>
+    </sc-if>
+
+    <!-- ============ DÓNDE COMPRAR ============ -->
+    <sc-if value="{{ isDonde }}" hint-placeholder-val="{{ false }}">
+    <section style="background:#fff;padding:48px 0 var(--sec)">
+      <div style="width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)">
+        <div style="font-size:14px;color:#5B6B6C"><a href="#" onClick="{{ goHome }}">Inicio</a> / Dónde comprar</div>
+        <div style="display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;justify-content:space-between;margin:12px 0 26px">
+          <div>
+            <h1 style="font-family:Sora,sans-serif;font-weight:600;font-size:var(--h2);margin:0 0 8px;letter-spacing:-.015em">Farmacias adheridas</h1>
+            <p style="color:#5B6B6C;margin:0;max-width:56ch">Retirá tu Aerospacer en una farmacia adherida, o compralo online directo al fabricante. Los dos canales son oficiales.</p>
+          </div>
+          <button onClick="{{ goTienda }}" style="background:transparent;color:#1F8C90;border:1.5px solid #2FB4B8;padding:13px 26px;border-radius:999px;font-weight:700;cursor:pointer;font-size:16px" style-hover="background:#E4F4F4">Comprar online</button>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:22px">
+          <div style="flex:1 1 380px;min-width:0;border-radius:20px;overflow:hidden;border:1px solid #DDE9E9;height:520px">
+            <iframe src="map.html" title="Mapa de farmacias adheridas" style="width:100%;height:100%;border:0;display:block"></iframe>
+          </div>
+          <div style="flex:1 1 300px;min-width:0;max-height:520px;overflow-y:auto;padding-right:4px">
+            <sc-for list="{{ ciudades }}" as="c" hint-placeholder-count="8">
+              <div style="border:1px solid #E3EDED;border-radius:16px;margin-bottom:10px;overflow:hidden">
+                <button onClick="{{ c.toggle }}" style="width:100%;background:#fff;border:none;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;text-align:left" style-hover="background:#F6F9F9">
+                  <span style="font-family:Sora,sans-serif;font-weight:600;font-size:16.5px;color:#122A2C">{{ c.nombre }}</span>
+                  <span style="display:flex;align-items:center;gap:10px"><span style="background:#E4F4F4;color:#1F8C90;font-size:12.5px;font-weight:700;padding:4px 10px;border-radius:999px">{{ c.n }}</span><span style="color:#5B6B6C">{{ c.chev }}</span></span>
+                </button>
+                <sc-if value="{{ c.open }}" hint-placeholder-val="{{ false }}">
+                  <div style="border-top:1px solid #E3EDED;background:#F9FCFC;padding:6px 18px 14px">
+                    <sc-for list="{{ c.items }}" as="f" hint-placeholder-count="3">
+                      <div style="padding:12px 0;border-bottom:1px solid #EDF3F3;display:flex;gap:12px;align-items:flex-start">
+                        <span style="width:9px;height:9px;flex:none;border-radius:50%;background:#2FB4B8;margin-top:8px"></span>
+                        <div><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7C8E8F">{{ f.nombre }}</div><div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9AACAD">{{ f.dir }}</div></div>
+                      </div>
+                    </sc-for>
+                    <div style="font-size:12.5px;color:#9AACAD;padding-top:10px;font-family:'IBM Plex Mono',monospace">datos de farmacias pendientes de Patejim</div>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- ============ CONTACTO ============ -->
+    <sc-if value="{{ isContacto }}" hint-placeholder-val="{{ false }}">
+    <section style="background:#fff;padding:48px 0 var(--sec)">
+      <div style="width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)">
+        <div style="font-size:14px;color:#5B6B6C"><a href="#" onClick="{{ goHome }}">Inicio</a> / Contacto</div>
+        <h1 style="font-family:Sora,sans-serif;font-weight:600;font-size:var(--h2);margin:12px 0 30px;letter-spacing:-.015em">Contacto</h1>
+        <div style="display:flex;flex-wrap:wrap;gap:44px">
+          <div style="flex:1 1 340px;min-width:0">
+            <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+              <div style="background:#EEF7F1;border:1px solid #C4E3CF;border-radius:18px;padding:26px;display:flex;gap:16px;align-items:flex-start">
+                <span style="width:38px;height:38px;flex:none;border-radius:50%;background:#3E9A5D;color:#fff;display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6L9 17l-5-5"></path></svg></span>
+                <div><div style="font-family:Sora,sans-serif;font-weight:600;font-size:18px;color:#2C6E43">Mensaje enviado</div><p style="margin:6px 0 0;color:#4A7A5C">Te respondemos dentro de las próximas 48 horas hábiles.</p></div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;flex-direction:column;gap:18px">
+                <div>
+                  <label style="display:block;font-weight:600;font-size:14.5px;margin-bottom:7px">Nombre y apellido</label>
+                  <input value="{{ form.nombre }}" onChange="{{ setNombre }}" placeholder="Tu nombre" style="{{ styNombre }}">
+                  <sc-if value="{{ err.nombre }}" hint-placeholder-val="{{ false }}"><div style="color:#D64545;font-size:13.5px;margin-top:6px;display:flex;gap:6px;align-items:center"><span style="width:15px;height:15px;border-radius:50%;background:#D64545;color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;font-weight:700">!</span>Ingresá tu nombre</div></sc-if>
+                </div>
+                <div>
+                  <label style="display:block;font-weight:600;font-size:14.5px;margin-bottom:7px">Email</label>
+                  <input value="{{ form.email }}" onChange="{{ setEmail }}" placeholder="nombre@correo.com" style="{{ styEmail }}">
+                  <sc-if value="{{ err.email }}" hint-placeholder-val="{{ false }}"><div style="color:#D64545;font-size:13.5px;margin-top:6px;display:flex;gap:6px;align-items:center"><span style="width:15px;height:15px;border-radius:50%;background:#D64545;color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;font-weight:700">!</span>Ingresá un email válido</div></sc-if>
+                </div>
+                <div>
+                  <label style="display:block;font-weight:600;font-size:14.5px;margin-bottom:7px">Mensaje</label>
+                  <textarea value="{{ form.msg }}" onChange="{{ setMsg }}" rows="5" placeholder="Contanos en qué te podemos ayudar" style="{{ styMsg }}"></textarea>
+                  <sc-if value="{{ err.msg }}" hint-placeholder-val="{{ false }}"><div style="color:#D64545;font-size:13.5px;margin-top:6px;display:flex;gap:6px;align-items:center"><span style="width:15px;height:15px;border-radius:50%;background:#D64545;color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;font-weight:700">!</span>Escribinos tu consulta</div></sc-if>
+                </div>
+                <button onClick="{{ submit }}" style="align-self:flex-start;background:#2FB4B8;color:#062021;border:none;padding:15px 32px;border-radius:999px;font-weight:700;font-size:16.5px;cursor:pointer" style-hover="background:#1F8C90;color:#fff">Enviar mensaje</button>
+              </div>
+            </sc-if>
+          </div>
+          <div style="flex:1 1 280px;min-width:0;display:flex;flex-direction:column;gap:12px">
+            <sc-for list="{{ contactos }}" as="c" hint-placeholder-count="4">
+              <div style="background:#F6F9F9;border:1px solid #E3EDED;border-radius:16px;padding:20px;display:flex;gap:16px;align-items:center">
+                <span style="width:46px;height:46px;flex:none;border-radius:50%;background:#E4F4F4;color:#1F8C90;display:flex;align-items:center;justify-content:center;font-family:Sora,sans-serif;font-weight:700;font-size:15px">{{ c.ic }}</span>
+                <div><div style="font-weight:600;font-size:15.5px">{{ c.label }}</div><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7C8E8F">{{ c.valor }}</div></div>
+              </div>
+            </sc-for>
+            <div style="font-size:12.5px;color:#9AACAD;font-family:'IBM Plex Mono',monospace">datos de contacto pendientes de Patejim</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- ============ CARRITO ============ -->
+    <sc-if value="{{ isCarrito }}" hint-placeholder-val="{{ false }}">
+    <section style="background:#fff;padding:48px 0 var(--sec);min-height:60vh">
+      <div style="width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)">
+        <div style="font-size:14px;color:#5B6B6C"><a href="#" onClick="{{ goHome }}">Inicio</a> / Carrito</div>
+        <h1 style="font-family:Sora,sans-serif;font-weight:600;font-size:var(--h2);margin:12px 0 30px;letter-spacing:-.015em">Tu carrito</h1>
+
+        <sc-if value="{{ cartEmpty }}" hint-placeholder-val="{{ true }}">
+          <div style="background:#F6F9F9;border:1px solid #E3EDED;border-radius:22px;padding:64px 28px;text-align:center">
+            <div style="width:82px;height:82px;border-radius:50%;background:#E4F4F4;color:#1F8C90;display:flex;align-items:center;justify-content:center;margin:0 auto 20px"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="20" r="1.4"></circle><circle cx="18" cy="20" r="1.4"></circle><path d="M2 3h3l3 12h11"></path><path d="M6 7h15l-2 7H8"></path></svg></div>
+            <div style="font-family:Sora,sans-serif;font-weight:600;font-size:var(--h3)">Todavía no agregaste productos</div>
+            <p style="color:#5B6B6C;margin:10px auto 26px;max-width:46ch">Elegí la línea y el rango etario que necesitás en la tienda. Si preferís retirarlo en persona, también podés ver las farmacias adheridas.</p>
+            <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center">
+              <button onClick="{{ goTienda }}" style="background:#2FB4B8;color:#062021;border:none;padding:14px 30px;border-radius:999px;font-weight:700;font-size:16.5px;cursor:pointer" style-hover="background:#1F8C90;color:#fff">Ir a la tienda</button>
+              <button onClick="{{ goDonde }}" style="background:transparent;color:#1F8C90;border:1.5px solid #2FB4B8;padding:14px 30px;border-radius:999px;font-weight:700;font-size:16.5px;cursor:pointer" style-hover="background:#E4F4F4">Ver farmacias adheridas</button>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ cartHasItems }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start">
+          <div style="flex:1 1 400px;min-width:0;border:1px solid #E3EDED;border-radius:20px;overflow:hidden">
+            <sc-for list="{{ cartLines }}" as="l" hint-placeholder-count="2">
+              <div style="display:flex;flex-wrap:wrap;gap:18px;padding:22px;border-bottom:1px solid #EDF3F3;align-items:center">
+                <div style="width:96px;height:96px;flex:none;background:#F6F9F9;border-radius:14px;display:flex;align-items:center;justify-content:center;padding:8px"><img src="assets/aerocamara.png" alt="" style="width:100%;height:auto"></div>
+                <div style="flex:1 1 180px;min-width:0">
+                  <div style="align-self:flex-start;display:inline-block;background:#E4F4F4;color:#1F8C90;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;border-radius:999px;margin-bottom:7px">{{ l.linea }}</div>
+                  <div style="font-family:Sora,sans-serif;font-weight:600;font-size:16.5px;line-height:1.3">{{ l.nombre }}</div>
+                  <div style="color:#5B6B6C;font-size:14px;margin-top:3px">{{ l.precio }} por unidad</div>
+                </div>
+                <div style="display:flex;align-items:center;border:1px solid #DDE9E9;border-radius:999px;flex:none">
+                  <button onClick="{{ l.dec }}" style="background:none;border:none;width:40px;height:44px;color:#1F8C90;cursor:pointer;font-size:18px" style-hover="background:#F1F8F8">−</button>
+                  <span style="min-width:30px;text-align:center;font-weight:600">{{ l.qty }}</span>
+                  <button onClick="{{ l.inc }}" style="background:none;border:none;width:40px;height:44px;color:#1F8C90;cursor:pointer;font-size:18px" style-hover="background:#F1F8F8">+</button>
+                </div>
+                <div style="flex:none;min-width:110px;text-align:right">
+                  <div style="font-family:Sora,sans-serif;font-weight:700;font-size:19px">{{ l.subtotal }}</div>
+                  <button onClick="{{ l.remove }}" style="background:none;border:none;color:#5B6B6C;font-size:13.5px;cursor:pointer;padding:4px 0;text-decoration:underline" style-hover="color:#D64545">Quitar</button>
+                </div>
+              </div>
+            </sc-for>
+            <div style="padding:18px 22px"><a href="#" onClick="{{ goTienda }}" style="font-weight:600">← Seguir comprando</a></div>
+          </div>
+          <div style="flex:1 1 280px;min-width:0;border:1px solid #E3EDED;border-radius:20px;padding:26px;background:#F9FCFC;position:sticky;top:92px">
+            <div style="font-family:Sora,sans-serif;font-weight:600;font-size:var(--h3);margin-bottom:18px">Resumen</div>
+            <div style="display:flex;justify-content:space-between;color:#5B6B6C;margin-bottom:9px"><span>Subtotal</span><span style="color:#122A2C;font-weight:600">{{ cartTotal }}</span></div>
+            <div style="display:flex;justify-content:space-between;color:#5B6B6C;margin-bottom:16px"><span>Envío</span><span style="color:#3E9A5D;font-weight:600">Gratis</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid #E3EDED;padding-top:16px"><span style="font-weight:600">Total</span><span style="font-family:Sora,sans-serif;font-weight:700;font-size:26px">{{ cartTotal }}</span></div>
+            <button onClick="{{ goCheckout }}" style="width:100%;margin-top:20px;background:#2FB4B8;color:#062021;border:none;padding:15px;border-radius:999px;font-weight:700;font-size:16.5px;cursor:pointer" style-hover="background:#1F8C90;color:#fff">Continuar la compra</button>
+            <div style="display:flex;flex-direction:column;gap:12px;margin-top:20px">
+              <div style="display:flex;align-items:center;gap:11px;font-size:14px;color:#3C4E4F"><span style="width:34px;height:34px;flex:none;border-radius:50%;background:#E4F4F4;color:#1F8C90;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px">$0</span>Envío gratis a todo el país</div>
+              <div style="display:flex;align-items:center;gap:11px;font-size:14px;color:#3C4E4F"><span style="width:34px;height:34px;flex:none;border-radius:50%;background:#E4F4F4;color:#1F8C90;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px">3</span>Cuotas sin interés</div>
+              <div style="display:flex;align-items:center;gap:11px;font-size:14px;color:#3C4E4F"><span style="width:34px;height:34px;flex:none;border-radius:50%;background:#E4F4F4;color:#1F8C90;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px">MP</span>Pago con Mercado Pago</div>
+            </div>
+          </div>
+        </div>
+        </sc-if>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- ============ CHECKOUT ============ -->
+    <sc-if value="{{ isCheckout }}" hint-placeholder-val="{{ false }}">
+    <section style="background:#F6F9F9;padding:40px 0 var(--sec);min-height:70vh">
+      <div style="width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)">
+
+        <sc-if value="{{ stepDone }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:660px;margin:0 auto;background:#fff;border:1px solid #E3EDED;border-radius:24px;padding:44px 38px;text-align:center">
+            <div style="width:86px;height:86px;border-radius:50%;background:#3E9A5D;color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 22px"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6L9 17l-5-5"></path></svg></div>
+            <div style="color:#3E9A5D;font-weight:700;font-size:13.5px;letter-spacing:.09em;text-transform:uppercase">Compra confirmada</div>
+            <h1 style="font-family:Sora,sans-serif;font-weight:600;font-size:var(--h2);margin:12px 0 8px;letter-spacing:-.015em">¡Gracias por tu compra!</h1>
+            <p style="color:#5B6B6C;margin:0 auto 24px;max-width:48ch">Te enviamos el detalle del pedido por email. Cualquier duda sobre el uso del dispositivo, escribinos.</p>
+            <div style="display:inline-flex;align-items:center;gap:12px;background:#F6F9F9;border:1px solid #E3EDED;border-radius:14px;padding:14px 22px;margin-bottom:30px">
+              <span style="color:#5B6B6C;font-size:14.5px">Número de pedido</span>
+              <span style="font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:17px;color:#122A2C">{{ orderNumber }}</span>
+            </div>
+            <div style="text-align:left;border-top:1px solid #E3EDED;padding-top:26px">
+              <div style="font-family:Sora,sans-serif;font-weight:600;font-size:var(--h3);margin-bottom:16px">Próximos pasos</div>
+              <div style="display:flex;flex-direction:column;gap:14px">
+                <sc-for list="{{ nextSteps }}" as="s" hint-placeholder-count="3">
+                  <div style="display:flex;gap:14px;align-items:flex-start"><span style="width:30px;height:30px;flex:none;border-radius:50%;background:#E4F4F4;color:#1F8C90;display:flex;align-items:center;justify-content:center;font-family:Sora,sans-serif;font-weight:600;font-size:14px">{{ s.n }}</span><span style="color:#3C4E4F">{{ s.t }}</span></div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:30px">
+              <button onClick="{{ goCuenta }}" style="background:#2FB4B8;color:#062021;border:none;padding:14px 28px;border-radius:999px;font-weight:700;font-size:16px;cursor:pointer" style-hover="background:#1F8C90;color:#fff">Ver mis pedidos</button>
+              <button onClick="{{ goBeneficios }}" style="background:transparent;color:#1F8C90;border:1.5px solid #2FB4B8;padding:14px 28px;border-radius:999px;font-weight:700;font-size:16px;cursor:pointer" style-hover="background:#E4F4F4">Ver guía de uso</button>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ stepActive }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <div style="font-size:14px;color:#5B6B6C"><a href="#" onClick="{{ goCarrito }}">Carrito</a> / Checkout</div>
+          <h1 style="font-family:Sora,sans-serif;font-weight:600;font-size:var(--h2);margin:12px 0 26px;letter-spacing:-.015em">Finalizar compra</h1>
+
+          <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px">
+            <sc-for list="{{ steps }}" as="s" hint-placeholder-count="3">
+              <div style="{{ s.style }}">
+                <span style="{{ s.numStyle }}">{{ s.n }}</span>
+                <span style="font-weight:600;font-size:15px">{{ s.label }}</span>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start">
+            <div style="flex:1 1 400px;min-width:0;background:#fff;border:1px solid #E3EDED;border-radius:20px;padding:28px">
+
+              <sc-if value="{{ step1 }}" hint-placeholder-val="{{ true }}">
+              <div>
+                <div style="font-family:Sora,sans-serif;font-weight:600;font-size:var(--h3);margin-bottom:6px">Datos de envío</div>
+                <p style="color:#5B6B6C;margin:0 0 22px;font-size:15px">No necesitás crear una cuenta: podés comprar como invitado.</p>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:16px">
+                  <sc-for list="{{ shipFields }}" as="f" hint-placeholder-count="8">
+                    <div style="{{ f.wrap }}">
+                      <label style="display:block;font-weight:600;font-size:14px;margin-bottom:6px">{{ f.label }}</label>
+                      <input value="{{ f.value }}" onChange="{{ f.set }}" placeholder="{{ f.ph }}" style="{{ f.style }}">
+                      <sc-if value="{{ f.bad }}" hint-placeholder-val="{{ false }}"><div style="color:#D64545;font-size:13px;margin-top:5px;display:flex;gap:6px;align-items:center"><span style="width:15px;height:15px;flex:none;border-radius:50%;background:#D64545;color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;font-weight:700">!</span>{{ f.msg }}</div></sc-if>
+                    </div>
+                  </sc-for>
+                </div>
+                <sc-if value="{{ hasErrors }}" hint-placeholder-val="{{ false }}">
+                  <div style="background:#FCEDED;border:1px solid #F0C9C9;color:#B33636;border-radius:14px;padding:13px 16px;font-size:14.5px;margin-top:20px">Revisá los campos marcados para poder continuar.</div>
+                </sc-if>
+                <button onClick="{{ nextStep }}" style="margin-top:24px;background:#2FB4B8;color:#062021;border:none;padding:15px 32px;border-radius:999px;font-weight:700;font-size:16.5px;cursor:pointer" style-hover="background:#1F8C90;color:#fff">Continuar al pago</button>
+              </div>
+              </sc-if>
+
+              <sc-if value="{{ step2 }}" hint-placeholder-val="{{ false }}">
+              <div>
+                <div style="font-family:Sora,sans-serif;font-weight:600;font-size:var(--h3);margin-bottom:6px">Medio de pago</div>
+                <p style="color:#5B6B6C;margin:0 0 22px;font-size:15px">El pago se procesa con Mercado Pago. Vas a completar los datos de la tarjeta en su plataforma.</p>
+                <div style="display:flex;flex-direction:column;gap:12px">
+                  <sc-for list="{{ pagos }}" as="p" hint-placeholder-count="2">
+                    <div onClick="{{ p.pick }}" style="{{ p.style }}">
+                      <span style="{{ p.radio }}"></span>
+                      <div style="flex:1;min-width:0"><div style="font-weight:600;font-size:16px">{{ p.label }}</div><div style="color:#5B6B6C;font-size:14px">{{ p.desc }}</div></div>
+                      <span style="width:44px;height:30px;flex:none;border-radius:7px;background:#E4F4F4;color:#1F8C90;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11.5px">MP</span>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:22px;margin-top:24px;padding-top:22px;border-top:1px solid #EDF3F3">
+                  <div style="display:flex;align-items:center;gap:11px;font-size:14px;color:#3C4E4F"><span style="width:34px;height:34px;flex:none;border-radius:50%;background:#E4F4F4;color:#1F8C90;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px">3</span>Cuotas sin interés</div>
+                  <div style="display:flex;align-items:center;gap:11px;font-size:14px;color:#3C4E4F"><span style="width:34px;height:34px;flex:none;border-radius:50%;background:#E4F4F4;color:#1F8C90;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px">$0</span>Envío gratis</div>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:24px">
+                  <button onClick="{{ prevStep }}" style="background:none;border:none;color:#1F8C90;font-weight:700;font-size:16px;cursor:pointer;padding:15px 10px" style-hover="color:#2FB4B8">← Volver</button>
+                  <button onClick="{{ nextStep }}" style="background:#2FB4B8;color:#062021;border:none;padding:15px 32px;border-radius:999px;font-weight:700;font-size:16.5px;cursor:pointer" style-hover="background:#1F8C90;color:#fff">Revisar el pedido</button>
+                </div>
+              </div>
+              </sc-if>
+
+              <sc-if value="{{ step3 }}" hint-placeholder-val="{{ false }}">
+              <div>
+                <div style="font-family:Sora,sans-serif;font-weight:600;font-size:var(--h3);margin-bottom:20px">Confirmación</div>
+                <div style="display:flex;flex-direction:column;gap:14px">
+                  <div style="background:#F9FCFC;border:1px solid #E3EDED;border-radius:16px;padding:18px">
+                    <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><div style="font-weight:600;font-size:15px">Envío a</div><button onClick="{{ toStep1 }}" style="background:none;border:none;color:#1F8C90;font-size:14px;cursor:pointer;text-decoration:underline">Editar</button></div>
+                    <div style="color:#5B6B6C;font-size:15px;margin-top:6px">{{ resumenEnvio }}</div>
+                  </div>
+                  <div style="background:#F9FCFC;border:1px solid #E3EDED;border-radius:16px;padding:18px">
+                    <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><div style="font-weight:600;font-size:15px">Medio de pago</div><button onClick="{{ toStep2 }}" style="background:none;border:none;color:#1F8C90;font-size:14px;cursor:pointer;text-decoration:underline">Editar</button></div>
+                    <div style="color:#5B6B6C;font-size:15px;margin-top:6px">{{ resumenPago }}</div>
+                  </div>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:26px">
+                  <button onClick="{{ prevStep }}" style="background:none;border:none;color:#1F8C90;font-weight:700;font-size:16px;cursor:pointer;padding:15px 10px" style-hover="color:#2FB4B8">← Volver</button>
+                  <button onClick="{{ confirmOrder }}" style="{{ confirmStyle }}">{{ confirmLabel }}</button>
+                </div>
+              </div>
+              </sc-if>
+            </div>
+
+            <div style="flex:1 1 280px;min-width:0;background:#fff;border:1px solid #E3EDED;border-radius:20px;padding:24px;position:sticky;top:92px">
+              <div style="font-family:Sora,sans-serif;font-weight:600;font-size:var(--h3);margin-bottom:16px">Tu compra</div>
+              <sc-for list="{{ cartLines }}" as="l" hint-placeholder-count="2">
+                <div style="display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #EDF3F3;align-items:center">
+                  <div style="width:56px;height:56px;flex:none;background:#F6F9F9;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:5px"><img src="assets/aerocamara.png" alt="" style="width:100%;height:auto"></div>
+                  <div style="flex:1;min-width:0"><div style="font-weight:600;font-size:14.5px;line-height:1.3">{{ l.nombre }}</div><div style="color:#5B6B6C;font-size:13px">Cantidad {{ l.qty }}</div></div>
+                  <div style="font-weight:600;font-size:14.5px">{{ l.subtotal }}</div>
+                </div>
+              </sc-for>
+              <sc-if value="{{ cartEmpty }}" hint-placeholder-val="{{ false }}">
+                <div style="color:#5B6B6C;font-size:15px;padding:8px 0 14px">No hay productos en el carrito. <a href="#" onClick="{{ goTienda }}">Ir a la tienda</a></div>
+              </sc-if>
+              <div style="display:flex;justify-content:space-between;color:#5B6B6C;margin-top:16px"><span>Envío</span><span style="color:#3E9A5D;font-weight:600">Gratis</span></div>
+              <div style="display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid #E3EDED;margin-top:14px;padding-top:14px"><span style="font-weight:600">Total</span><span style="font-family:Sora,sans-serif;font-weight:700;font-size:24px">{{ cartTotal }}</span></div>
+            </div>
+          </div>
+        </div>
+        </sc-if>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- ============ MI CUENTA / MIS PEDIDOS ============ -->
+    <sc-if value="{{ isCuenta }}" hint-placeholder-val="{{ false }}">
+    <section style="background:#fff;padding:48px 0 var(--sec);min-height:60vh">
+      <div style="width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)">
+        <div style="font-size:14px;color:#5B6B6C"><a href="#" onClick="{{ goHome }}">Inicio</a> / Mi cuenta</div>
+        <div style="display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;justify-content:space-between;margin:12px 0 26px">
+          <div>
+            <h1 style="font-family:Sora,sans-serif;font-weight:600;font-size:var(--h2);margin:0 0 8px;letter-spacing:-.015em">Mis pedidos</h1>
+            <p style="color:#5B6B6C;margin:0;max-width:56ch">La cuenta es opcional: si compraste como invitado, seguí tu pedido con el número que te enviamos por email.</p>
+          </div>
+          <button onClick="{{ goTienda }}" style="background:transparent;color:#1F8C90;border:1.5px solid #2FB4B8;padding:13px 26px;border-radius:999px;font-weight:700;font-size:16px;cursor:pointer" style-hover="background:#E4F4F4">Comprar de nuevo</button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <sc-for list="{{ pedidos }}" as="o" hint-placeholder-count="3">
+            <div style="border:1px solid #E3EDED;border-radius:20px;padding:22px;display:flex;flex-wrap:wrap;gap:20px;align-items:center">
+              <div style="width:76px;height:76px;flex:none;background:#F6F9F9;border-radius:14px;display:flex;align-items:center;justify-content:center;padding:7px"><img src="assets/aerocamara.png" alt="" style="width:100%;height:auto"></div>
+              <div style="flex:1 1 220px;min-width:0">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7C8E8F">{{ o.num }}</div>
+                <div style="font-family:Sora,sans-serif;font-weight:600;font-size:16.5px;margin-top:3px">{{ o.items }}</div>
+                <div style="color:#5B6B6C;font-size:14px">{{ o.fecha }}</div>
+              </div>
+              <div style="flex:none;display:flex;align-items:center;gap:9px;font-weight:600;font-size:14.5px;color:{{ o.color }}"><span style="width:9px;height:9px;border-radius:50%;background:{{ o.color }};display:inline-block"></span>{{ o.estado }}</div>
+              <div style="flex:none;min-width:120px;text-align:right"><div style="font-family:Sora,sans-serif;font-weight:700;font-size:19px">{{ o.total }}</div><a href="#" onClick="{{ goBeneficios }}" style="font-size:13.5px">Guía de uso</a></div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="margin-top:34px;background:#F6F9F9;border:1px solid #E3EDED;border-radius:20px;padding:26px;display:flex;flex-wrap:wrap;gap:22px;align-items:center;justify-content:space-between">
+          <div>
+            <div style="font-family:Sora,sans-serif;font-weight:600;font-size:var(--h3)">¿Compraste como invitado?</div>
+            <p style="color:#5B6B6C;margin:8px 0 0;max-width:52ch">Escribinos con tu número de pedido y te contamos el estado del envío.</p>
+          </div>
+          <button onClick="{{ goContacto }}" style="background:#2FB4B8;color:#062021;border:none;padding:14px 28px;border-radius:999px;font-weight:700;font-size:16px;cursor:pointer" style-hover="background:#1F8C90;color:#fff">Contactar a Patejim</button>
+        </div>
+      </div>
+    </section>
+    </sc-if>
+
+    </main>
+
+    <footer style="background:#122A2C;color:#B7CDCE;padding:56px 0 30px">
+      <div style="width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:36px">
+        <div>
+          <img src="assets/logo-aerospacer.png" alt="Aerospacer" style="height:24px;filter:brightness(1.18)">
+          <p style="margin:16px 0 0;font-size:15px;max-width:34ch">Aerocámaras bivalvuladas de diseño patentado, fabricadas en Argentina por Patejim.</p>
+          <img src="assets/logo-patejim.png" alt="Patejim" style="height:44px;margin-top:18px;filter:brightness(1.5) grayscale(.15)">
+        </div>
+        <div>
+          <div style="color:#fff;font-family:Sora,sans-serif;font-weight:600;font-size:15px;margin-bottom:14px">Comprar</div>
+          <div style="display:flex;flex-direction:column;gap:9px;font-size:15px">
+            <a href="#" onClick="{{ goTienda }}" style="color:#B7CDCE" style-hover="color:#2FB4B8">Tienda online</a>
+            <a href="#" onClick="{{ goDonde }}" style="color:#B7CDCE" style-hover="color:#2FB4B8">Farmacias adheridas</a>
+            <a href="#" onClick="{{ goBeneficios }}" style="color:#B7CDCE" style-hover="color:#2FB4B8">Beneficios y usos</a>
+            <a href="#" onClick="{{ goCarrito }}" style="color:#B7CDCE" style-hover="color:#2FB4B8">Carrito</a>
+            <a href="#" onClick="{{ goCuenta }}" style="color:#B7CDCE" style-hover="color:#2FB4B8">Mis pedidos</a>
+          </div>
+        </div>
+        <div>
+          <div style="color:#fff;font-family:Sora,sans-serif;font-weight:600;font-size:15px;margin-bottom:14px">Contacto</div>
+          <div style="display:flex;flex-direction:column;gap:9px;font-size:15px;font-family:'IBM Plex Mono',monospace;color:#8FA8A9">
+            <span>teléfono pendiente</span><span>email pendiente</span><span>dirección pendiente</span>
+          </div>
+        </div>
+        <div>
+          <div style="color:#fff;font-family:Sora,sans-serif;font-weight:600;font-size:15px;margin-bottom:14px">Certificaciones</div>
+          <div style="display:flex;flex-wrap:wrap;gap:10px">
+            <span style="border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:10px 14px;font-size:13.5px">Sello Buen Diseño 2018</span>
+            <span style="border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:10px 14px;font-size:13.5px">Diseño patentado</span>
+            <span style="border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:10px 14px;font-size:13.5px">Industria argentina</span>
+          </div>
+        </div>
+      </div>
+      <div style="width:100%;max-width:var(--maxw);margin:34px auto 0;padding:20px var(--pad) 0;border-top:1px solid rgba(255,255,255,.08);font-size:13.5px;color:#7E9899">© 2026 Patejim · Aerospacer</div>
+    </footer>
+  </div>
+
+  <!-- Carrito -->
+  <sc-if value="{{ cartOpen }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <div onClick="{{ closeCart }}" style="position:fixed;inset:0;background:rgba(9,26,27,.5);z-index:60"></div>
+      <aside style="position:fixed;top:0;right:0;bottom:0;width:min(100%,400px);background:#fff;z-index:61;display:flex;flex-direction:column;box-shadow:-14px 0 40px rgba(9,26,27,.25);animation:fadeUp .18s ease">
+        <div style="padding:22px 24px;border-bottom:1px solid #E3EDED;display:flex;align-items:center;justify-content:space-between">
+          <div style="font-family:Sora,sans-serif;font-weight:600;font-size:19px">Tu carrito</div>
+          <button onClick="{{ closeCart }}" style="background:none;border:none;font-size:24px;color:#5B6B6C;cursor:pointer;line-height:1">×</button>
+        </div>
+        <div style="flex:1;overflow-y:auto;padding:18px 24px">
+          <sc-if value="{{ cartEmpty }}" hint-placeholder-val="{{ true }}">
+            <div style="text-align:center;padding:50px 10px">
+              <div style="width:74px;height:74px;border-radius:50%;background:#F1F8F8;color:#1F8C90;display:flex;align-items:center;justify-content:center;margin:0 auto 18px"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="20" r="1.4"></circle><circle cx="18" cy="20" r="1.4"></circle><path d="M2 3h3l3 12h11"></path><path d="M6 7h15l-2 7H8"></path></svg></div>
+              <div style="font-family:Sora,sans-serif;font-weight:600;font-size:18px">Tu carrito está vacío</div>
+              <p style="color:#5B6B6C;margin:8px 0 22px">Elegí la aerocámara que necesitás en la tienda.</p>
+              <button onClick="{{ goTiendaFromCart }}" style="background:#2FB4B8;color:#062021;border:none;padding:13px 26px;border-radius:999px;font-weight:700;cursor:pointer;font-size:16px" style-hover="background:#1F8C90;color:#fff">Ir a la tienda</button>
+            </div>
+          </sc-if>
+          <sc-for list="{{ cartLines }}" as="l" hint-placeholder-count="0">
+            <div style="display:flex;gap:14px;padding:16px 0;border-bottom:1px solid #EDF3F3">
+              <div style="width:74px;height:74px;flex:none;background:#F6F9F9;border-radius:12px;display:flex;align-items:center;justify-content:center;padding:6px"><img src="assets/aerocamara.png" alt="" style="width:100%;height:auto"></div>
+              <div style="flex:1;min-width:0">
+                <div style="font-weight:600;font-size:15.5px;line-height:1.3">{{ l.nombre }}</div>
+                <div style="color:#5B6B6C;font-size:13.5px">{{ l.precio }} c/u</div>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:8px">
+                  <div style="display:flex;align-items:center;border:1px solid #DDE9E9;border-radius:999px">
+                    <button onClick="{{ l.dec }}" style="background:none;border:none;width:32px;height:30px;color:#1F8C90;cursor:pointer;font-size:16px">−</button>
+                    <span style="min-width:24px;text-align:center;font-weight:600;font-size:14.5px">{{ l.qty }}</span>
+                    <button onClick="{{ l.inc }}" style="background:none;border:none;width:32px;height:30px;color:#1F8C90;cursor:pointer;font-size:16px">+</button>
+                  </div>
+                  <div style="font-family:Sora,sans-serif;font-weight:600">{{ l.subtotal }}</div>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <sc-if value="{{ cartHasItems }}" hint-placeholder-val="{{ false }}">
+          <div style="border-top:1px solid #E3EDED;padding:20px 24px 24px">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px"><span style="color:#5B6B6C">Subtotal</span><span style="font-family:Sora,sans-serif;font-weight:700;font-size:22px">{{ cartTotal }}</span></div>
+            <div style="display:flex;gap:14px;margin:12px 0 16px">
+              <div style="display:flex;align-items:center;gap:9px;font-size:13.5px;color:#3C4E4F"><span style="width:30px;height:30px;border-radius:50%;background:#E4F4F4;color:#1F8C90;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px">$0</span>Envío gratis</div>
+              <div style="display:flex;align-items:center;gap:9px;font-size:13.5px;color:#3C4E4F"><span style="width:30px;height:30px;border-radius:50%;background:#E4F4F4;color:#1F8C90;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px">3</span>Cuotas sin interés</div>
+            </div>
+            <button onClick="{{ goCarrito }}" style="width:100%;background:#2FB4B8;color:#062021;border:none;padding:15px;border-radius:999px;font-weight:700;font-size:16.5px;cursor:pointer" style-hover="background:#1F8C90;color:#fff">Ver el carrito</button>
+            <div style="text-align:center;margin-top:12px"><a href="#" onClick="{{ goTiendaFromCart }}" style="font-size:14.5px">Seguir comprando</a></div>
+          </div>
+        </sc-if>
+      </aside>
+    </div>
+  </sc-if>
+
+  <!-- Panel de revisión -->
+  <div style="position:fixed;bottom:16px;left:16px;z-index:80;background:rgba(18,42,44,.94);color:#fff;border-radius:14px;padding:12px 14px;display:flex;gap:16px;align-items:center;box-shadow:0 10px 30px rgba(9,26,27,.35);font-size:13px;backdrop-filter:blur(6px)">
+    <div style="display:flex;gap:7px;align-items:center"><span style="color:#8FA8A9">Vista</span><sc-for list="{{ vpBtns }}" as="b" hint-placeholder-count="2"><button onClick="{{ b.go }}" style="{{ b.style }}">{{ b.label }}</button></sc-for></div>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;viewport&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;desktop&quot;,&quot;mobile&quot;],&quot;default&quot;:&quot;desktop&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Vista&quot;}}">
+const PRIMARY = '#2FB4B8', DARK = '#122A2C';
+const money = n => '$' + n.toLocaleString('es-AR');
+
+const PRODUCTOS = [
+  { id: 'p1', nombre: 'Aerospacer Premium Neonatal', linea: 'Premium', edad: 'neonatal', precio: 32900, stock: 14 },
+  { id: 'p2', nombre: 'Aerospacer Premium Pediátrica', linea: 'Premium', edad: 'pediatrica', precio: 35900, stock: 9 },
+  { id: 'p3', nombre: 'Aerospacer Premium Adulto', linea: 'Premium', edad: 'adulto', precio: 35900, stock: 26 },
+  { id: 'p4', nombre: 'Aerospacer Hospitalaria Pediátrica', linea: 'Hospitalaria', edad: 'pediatrica', precio: 41900, stock: 3 },
+  { id: 'p5', nombre: 'Aerospacer Hospitalaria Adulto', linea: 'Hospitalaria', edad: 'adulto', precio: 41900, stock: 0 },
+  { id: 'p6', nombre: 'Aerospacer Personalizada Pediátrica', linea: 'Personalizada', edad: 'pediatrica', precio: 48900, stock: 6 },
+  { id: 'p7', nombre: 'Aerospacer Personalizada Adulto', linea: 'Personalizada', edad: 'adulto', precio: 48900, stock: 11 },
+  { id: 'p8', nombre: 'Aerospacer Hospitalaria Neonatal', linea: 'Hospitalaria', edad: 'neonatal', precio: 41900, stock: 5 }
+];
+
+const EDAD_LABEL = { neonatal: 'Rango neonatal', pediatrica: 'Rango pediátrico', adulto: 'Rango adulto' };
+
+const CIUDADES = [
+  ['Ciudad de Buenos Aires', 14], ['La Plata', 4], ['Córdoba', 7], ['Rosario', 6],
+  ['Mendoza', 5], ['Mar del Plata', 3], ['Santa Fe', 3], ['San Miguel de Tucumán', 3],
+  ['Salta', 2], ['Neuquén', 2], ['Bahía Blanca', 2], ['San Juan', 2]
+];
+
+class Component extends DCLogic {
+  state = {
+    screen: 'home',
+    variant: 'A', // fijado en A por pedido del cliente
+    vp: 'desktop',
+    menuOpen: false,
+    cart: {},
+    cartOpen: false,
+    fLinea: 'todas',
+    fEdad: 'todos',
+    prodId: 'p2',
+    qty: 1,
+    adding: null,
+    city: null,
+    form: { nombre: '', email: '', msg: '' },
+    err: {},
+    sent: false,
+    step: 1,
+    ship: { nombre: '', email: '', tel: '', calle: '', numero: '', ciudad: '', provincia: '', cp: '' },
+    shipErr: {},
+    shipTouched: false,
+    pago: 'tarjeta',
+    placing: false,
+    orderNumber: 'AER-2026-4718'
+  };
+
+  SHIP = [
+    ['nombre', 'Nombre y apellido', 'Tu nombre', 'Ingresá tu nombre', 2],
+    ['email', 'Email', 'nombre@correo.com', 'Ingresá un email válido', 1],
+    ['tel', 'Teléfono', '11 0000-0000', 'Ingresá un teléfono de contacto', 1],
+    ['calle', 'Calle', 'Av. Ejemplo', 'Ingresá la calle', 2],
+    ['numero', 'Número', '1234', 'Falta el número', 1],
+    ['cp', 'Código postal', 'C1000', 'Falta el código postal', 1],
+    ['ciudad', 'Ciudad', 'Ciudad', 'Ingresá la ciudad', 1],
+    ['provincia', 'Provincia', 'Provincia', 'Ingresá la provincia', 1]
+  ];
+
+  shipErrors(s) {
+    const v = s.ship, e = {};
+    this.SHIP.forEach(([k]) => { if (!String(v[k]).trim()) e[k] = true; });
+    if (v.email.trim() && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v.email.trim())) e.email = true;
+    return e;
+  }
+
+  onResize = () => this.setState({ winW: window.innerWidth });
+
+  componentWillUnmount() {
+    if (typeof window !== 'undefined') window.removeEventListener('resize', this.onResize);
+  }
+
+  componentDidMount() {
+    if (typeof window !== 'undefined') {
+      this.setState({ winW: window.innerWidth });
+      window.addEventListener('resize', this.onResize);
+    }
+    if (this.props.homeVariant) this.setState({ variant: this.props.homeVariant });
+    if (this.props.viewport) this.setState({ vp: this.props.viewport });
+  }
+
+  go = (screen) => (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    this.setState({ screen, menuOpen: false, cartOpen: false, sent: false });
+    if (typeof window !== 'undefined') window.scrollTo(0, 0);
+  };
+
+  pill(active, dark) {
+    return active
+      ? 'background:' + PRIMARY + ';color:#062021;border:1.5px solid ' + PRIMARY + ';padding:8px 16px;border-radius:999px;font-size:14px;font-weight:700;cursor:pointer'
+      : 'background:transparent;color:' + (dark ? '#B7CDCE' : '#3C4E4F') + ';border:1.5px solid ' + (dark ? 'rgba(255,255,255,.2)' : '#DDE9E9') + ';padding:8px 16px;border-radius:999px;font-size:14px;font-weight:600;cursor:pointer';
+  }
+
+  input(bad) {
+    return 'width:100%;padding:14px 16px;border-radius:14px;border:1.5px solid ' + (bad ? '#D64545' : '#DDE9E9') +
+      ';background:' + (bad ? '#FDF6F6' : '#fff') + ';font-size:16px;color:#122A2C;outline:none';
+  }
+
+  addToCart(p, n) {
+    if (p.stock === 0) return;
+    this.setState({ adding: p.id });
+    setTimeout(() => {
+      this.setState(s => {
+        const cart = Object.assign({}, s.cart);
+        cart[p.id] = (cart[p.id] || 0) + n;
+        return { cart, adding: null, cartOpen: true };
+      });
+    }, 550);
+  }
+
+  stockOf(p) {
+    if (p.stock === 0) return { stockColor: '#D64545', stockLabel: 'Sin stock' };
+    if (p.stock <= 3) return { stockColor: '#E0A63A', stockLabel: 'Últimas ' + p.stock + ' unidades' };
+    return { stockColor: '#3E9A5D', stockLabel: 'En stock' };
+  }
+
+  decorate(p) {
+    const s = this.stockOf(p);
+    const agotado = p.stock === 0;
+    const loading = this.state.adding === p.id;
+    const base = 'width:100%;border-radius:999px;padding:13px 18px;font-size:15.5px;font-weight:700;cursor:pointer;border:none;display:flex;align-items:center;justify-content:center;gap:9px';
+    return Object.assign({}, p, s, {
+      agotado,
+      precio: money(p.precio),
+      edadLabel: EDAD_LABEL[p.edad],
+      btnLabel: agotado ? 'Sin stock' : loading ? 'Agregando…' : 'Agregar al carrito',
+      btnStyle: agotado
+        ? base + ';background:#F1F4F4;color:#9AACAD;cursor:not-allowed'
+        : base + ';background:' + PRIMARY + ';color:#062021' + (loading ? ';opacity:.75' : ''),
+      bigBtnStyle: agotado
+        ? 'border-radius:999px;padding:15px 34px;font-size:16.5px;font-weight:700;border:none;background:#F1F4F4;color:#9AACAD;cursor:not-allowed'
+        : 'border-radius:999px;padding:15px 34px;font-size:16.5px;font-weight:700;border:none;cursor:pointer;background:' + PRIMARY + ';color:#062021' + (loading ? ';opacity:.75' : ''),
+      open: this.openProd(p.id),
+      add: (e) => { if (e) e.preventDefault(); this.addToCart(p, 1); }
+    });
+  }
+
+  openProd = (id) => (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    this.setState({ screen: 'ficha', prodId: id, qty: 1 });
+    if (typeof window !== 'undefined') window.scrollTo(0, 0);
+  };
+
+  setField(k) {
+    return (e) => {
+      const v = e.target.value;
+      this.setState(s => ({ form: Object.assign({}, s.form, { [k]: v }) }));
+    };
+  }
+
+  submit = (e) => {
+    if (e) e.preventDefault();
+    const f = this.state.form;
+    const err = {
+      nombre: !f.nombre.trim(),
+      email: !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.email.trim()),
+      msg: f.msg.trim().length < 4
+    };
+    if (err.nombre || err.email || err.msg) this.setState({ err });
+    else this.setState({ err: {}, sent: true });
+  };
+
+  renderVals() {
+    const st = this.state;
+    const mobile = st.vp === 'mobile';
+    const collapsed = mobile || (st.winW || 1280) < 1040;
+    const nav = [
+      ['Comprar', 'tienda'], ['Beneficios', 'beneficios'],
+      ['Nosotros', 'nosotros'], ['Dónde comprar', 'donde'], ['Contacto', 'contacto']
+    ];
+    const filtered = PRODUCTOS.filter(p =>
+      (st.fLinea === 'todas' || p.linea === st.fLinea) &&
+      (st.fEdad === 'todos' || p.edad === st.fEdad));
+    const prod = this.decorate(PRODUCTOS.find(p => p.id === st.prodId) || PRODUCTOS[1]);
+    const lines = Object.keys(st.cart).map(id => {
+      const p = PRODUCTOS.find(x => x.id === id);
+      const q = st.cart[id];
+      return {
+        nombre: p.nombre, linea: p.linea, precio: money(p.precio), qty: q, subtotal: money(p.precio * q),
+        remove: () => this.setState(s => { const cart = Object.assign({}, s.cart); delete cart[id]; return { cart }; }),
+        inc: () => this.setState(s => ({ cart: Object.assign({}, s.cart, { [id]: s.cart[id] + 1 }) })),
+        dec: () => this.setState(s => {
+          const cart = Object.assign({}, s.cart);
+          if (cart[id] <= 1) delete cart[id]; else cart[id] -= 1;
+          return { cart };
+        })
+      };
+    });
+    const total = Object.keys(st.cart).reduce((a, id) => a + PRODUCTOS.find(x => x.id === id).precio * st.cart[id], 0);
+    const count = Object.keys(st.cart).reduce((a, id) => a + st.cart[id], 0);
+
+    const mkFilter = (list, cur, key) => list.map(([label, val]) => ({
+      label, go: (e) => { if (e) e.preventDefault(); this.setState({ [key]: val }); },
+      style: this.pill(cur === val, false)
+    }));
+
+    return {
+      vpVars: mobile
+        ? { width: '412px', margin: '20px auto', height: '860px', overflowY: 'auto', overflowX: 'hidden', background: '#fff', borderRadius: '30px', border: '10px solid #0E2223', boxShadow: '0 24px 60px rgba(9,26,27,.3)', position: 'relative', '--pad': '20px', '--maxw': '100%', '--h1': '33px', '--h2': '25px', '--h3': '19px', '--sec': '48px' }
+        : {},
+      navDisplay: collapsed ? 'none' : 'flex',
+      accountStyle: 'display:' + (collapsed ? 'none' : 'block') + ';background:transparent;border:1px solid rgba(255,255,255,.14);color:' +
+        (st.screen === 'cuenta' ? PRIMARY : '#D6E7E7') + ';padding:9px 16px;border-radius:999px;cursor:pointer;font-size:14.5px;font-weight:600;white-space:nowrap',
+      burgerStyle: 'display:' + (collapsed ? 'flex' : 'none') + ';align-items:center;justify-content:center;width:42px;height:42px;border-radius:999px;background:transparent;border:1px solid rgba(255,255,255,.16);color:#fff;cursor:pointer',
+      menuOpen: st.menuOpen,
+      toggleMenu: (e) => { if (e) e.preventDefault(); this.setState(s => ({ menuOpen: !s.menuOpen })); },
+      navItems: nav.map(([label, sc, key]) => ({
+        label, go: this.go(sc),
+        style: 'font-size:15.5px;font-weight:600;white-space:nowrap;color:' + (st.screen === sc && key !== false ? PRIMARY : '#D6E7E7')
+      })),
+
+      isHome: st.screen === 'home', isTienda: st.screen === 'tienda', isFicha: st.screen === 'ficha',
+      isBeneficios: st.screen === 'beneficios', isDonde: st.screen === 'donde', isContacto: st.screen === 'contacto',
+      isNosotros: st.screen === 'nosotros', goNosotros: this.go('nosotros'),
+      nosotrosFeats1: [
+        'Única con visor de válvula patentado',
+        'Única con válvula de inhalación de silicona',
+        'Material que garantiza su uso repetido sin hidratarse y sin perder su capacidad elástica'
+      ],
+      nosotrosFeats2: [
+        'Silbato alarma', 'Adaptador sin estrías', 'Tubo antiestático',
+        'Máscara anatómica atóxica', 'Producto desarmable para facilitar limpieza y evitar roturas'
+      ],
+      nosotrosFeats3: [
+        'Diseño innovador reconocido por el Sello Buen Diseño Argentino 2018',
+        'Soporte MDI apto para todas las marcas de inhaladores',
+        'Servicio de urgencia'
+      ],
+      isCarrito: st.screen === 'carrito', isCheckout: st.screen === 'checkout', isCuenta: st.screen === 'cuenta',
+      goCarrito: this.go('carrito'), goCuenta: this.go('cuenta'),
+      goCheckout: (e) => { if (e) e.preventDefault(); this.setState({ screen: 'checkout', step: 1, shipTouched: false, cartOpen: false }); if (typeof window !== 'undefined') window.scrollTo(0, 0); },
+
+      step1: st.step === 1, step2: st.step === 2, step3: st.step === 3,
+      stepDone: st.step === 4, stepActive: st.step < 4,
+      steps: [['Envío', 1], ['Pago', 2], ['Confirmación', 3]].map(([label, n]) => {
+        const done = st.step > n, active = st.step === n;
+        return {
+          label, n: done ? '✓' : n,
+          style: 'display:flex;align-items:center;gap:11px;padding:12px 20px;border-radius:999px;background:' +
+            (active ? '#122A2C' : done ? '#EEF7F1' : '#fff') + ';color:' + (active ? '#fff' : done ? '#2C6E43' : '#5B6B6C') +
+            ';border:1px solid ' + (active ? '#122A2C' : done ? '#C4E3CF' : '#E3EDED'),
+          numStyle: 'width:26px;height:26px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:Sora,sans-serif;font-weight:600;font-size:13px;background:' +
+            (active ? PRIMARY : done ? '#3E9A5D' : '#F1F4F4') + ';color:' + (active || done ? '#fff' : '#7C8E8F')
+        };
+      }),
+      shipFields: this.SHIP.map(([k, label, ph, msg, span]) => ({
+        label, ph, msg,
+        value: st.ship[k],
+        bad: !!st.shipErr[k],
+        wrap: span === 2 ? 'grid-column:1/-1;min-width:0' : 'min-width:0',
+        style: this.input(!!st.shipErr[k]),
+        set: (e) => {
+          const v = e.target.value;
+          this.setState(s => {
+            const ship = Object.assign({}, s.ship, { [k]: v });
+            return { ship, shipErr: s.shipTouched ? this.shipErrors({ ship }) : s.shipErr };
+          });
+        }
+      })),
+      hasErrors: Object.keys(st.shipErr).length > 0,
+      nextStep: (e) => {
+        if (e) e.preventDefault();
+        if (st.step === 1) {
+          const err = this.shipErrors(st);
+          if (Object.keys(err).length) { this.setState({ shipErr: err, shipTouched: true }); return; }
+          this.setState({ shipErr: {}, shipTouched: true, step: 2 });
+        } else this.setState({ step: st.step + 1 });
+        if (typeof window !== 'undefined') window.scrollTo(0, 0);
+      },
+      prevStep: (e) => { if (e) e.preventDefault(); this.setState({ step: Math.max(1, st.step - 1) }); },
+      toStep1: (e) => { if (e) e.preventDefault(); this.setState({ step: 1 }); },
+      toStep2: (e) => { if (e) e.preventDefault(); this.setState({ step: 2 }); },
+      pagos: [
+        ['tarjeta', 'Mercado Pago · Tarjeta', 'Crédito o débito, hasta 3 cuotas sin interés'],
+        ['cuenta', 'Mercado Pago · Dinero en cuenta', 'Pagás con tu saldo disponible']
+      ].map(([v, label, desc]) => ({
+        label, desc,
+        pick: () => this.setState({ pago: v }),
+        style: 'display:flex;align-items:center;gap:14px;padding:18px;border-radius:16px;cursor:pointer;border:1.5px solid ' +
+          (st.pago === v ? PRIMARY : '#E3EDED') + ';background:' + (st.pago === v ? '#F2FAFA' : '#fff'),
+        radio: 'width:20px;height:20px;flex:none;border-radius:50%;border:2px solid ' + (st.pago === v ? PRIMARY : '#C9D9D9') +
+          ';background:' + (st.pago === v ? PRIMARY : '#fff') + ';box-shadow:' + (st.pago === v ? 'inset 0 0 0 3px #fff' : 'none')
+      })),
+      resumenEnvio: [st.ship.nombre, [st.ship.calle, st.ship.numero].filter(Boolean).join(' '), st.ship.ciudad, st.ship.provincia, st.ship.cp].filter(x => String(x).trim()).join(' · ') || 'Datos de envío pendientes',
+      resumenPago: st.pago === 'tarjeta' ? 'Mercado Pago · Tarjeta de crédito o débito' : 'Mercado Pago · Dinero en cuenta',
+      confirmLabel: st.placing ? 'Procesando el pago…' : 'Confirmar compra',
+      confirmStyle: 'background:' + PRIMARY + ';color:#062021;border:none;padding:15px 32px;border-radius:999px;font-weight:700;font-size:16.5px;cursor:' +
+        (st.placing ? 'progress' : 'pointer') + (st.placing ? ';opacity:.75' : ''),
+      confirmOrder: (e) => {
+        if (e) e.preventDefault();
+        if (st.placing) return;
+        this.setState({ placing: true });
+        setTimeout(() => {
+          this.setState({ placing: false, step: 4, cart: {}, orderNumber: 'AER-2026-' + (4000 + Math.floor(Math.random() * 900)) });
+          if (typeof window !== 'undefined') window.scrollTo(0, 0);
+        }, 900);
+      },
+      orderNumber: st.orderNumber,
+      nextSteps: [
+        { n: 1, t: 'Preparamos el pedido en planta dentro de las próximas 48 horas hábiles.' },
+        { n: 2, t: 'Te enviamos el código de seguimiento por email cuando despachamos.' },
+        { n: 3, t: 'Mirá la guía de uso en video antes de la primera aplicación.' }
+      ],
+      pedidos: [
+        { num: 'AER-2026-4718', items: 'Aerospacer Premium Pediátrica × 1', fecha: '2 de septiembre de 2026', estado: 'En preparación', color: '#E0A63A', total: money(35900) },
+        { num: 'AER-2026-4402', items: 'Aerospacer Hospitalaria Neonatal × 2', fecha: '18 de agosto de 2026', estado: 'Enviado', color: PRIMARY, total: money(83800) },
+        { num: 'AER-2026-3980', items: 'Aerospacer Premium Adulto × 1', fecha: '27 de junio de 2026', estado: 'Entregado', color: '#3E9A5D', total: money(35900) }
+      ],
+      isA: st.variant === 'A', isB: st.variant === 'B', isC: st.variant === 'C',
+
+      goHome: this.go('home'), goTienda: this.go('tienda'), goDonde: this.go('donde'),
+      goBeneficios: this.go('beneficios'), goContacto: this.go('contacto'),
+
+      lineas: [
+        { nombre: 'Premium', desc: 'Línea de uso domiciliario, con máscara de reborde anatómico soft.' },
+        { nombre: 'Hospitalaria', desc: 'Pensada para servicios de salud y uso intensivo, desarmable para limpieza.' },
+        { nombre: 'Personalizada', desc: 'Con identificación del paciente o de la institución.' }
+      ].map(l => Object.assign({}, l, {
+        go: (e) => { if (e) e.preventDefault(); this.setState({ screen: 'tienda', fLinea: l.nombre }); if (typeof window !== 'undefined') window.scrollTo(0, 0); }
+      })),
+
+      fLineas: mkFilter([['Todas', 'todas'], ['Premium', 'Premium'], ['Hospitalaria', 'Hospitalaria'], ['Personalizada', 'Personalizada']], st.fLinea, 'fLinea'),
+      fEdades: mkFilter([['Todos', 'todos'], ['Neonatal', 'neonatal'], ['Pediátrica', 'pediatrica'], ['Adulto', 'adulto']], st.fEdad, 'fEdad'),
+      resultLabel: filtered.length + (filtered.length === 1 ? ' producto' : ' productos'),
+      productos: filtered.map(p => this.decorate(p)),
+
+      prod, qty: st.qty,
+      incQty: () => this.setState(s => ({ qty: s.qty + 1 })),
+      decQty: () => this.setState(s => ({ qty: Math.max(1, s.qty - 1) })),
+      addProd: (e) => { if (e) e.preventDefault(); this.addToCart(PRODUCTOS.find(p => p.id === st.prodId), st.qty); },
+      specs: [
+        'Válvula de silicona inyectada con botón de seguridad',
+        'Visor de válvula patentado',
+        'Máscara con reborde anatómico soft',
+        'Tubo antiestático',
+        'Producto desarmable para facilitar la limpieza',
+        'Adaptador para cualquier MDI/aerosol',
+        'Adaptador sin estrías'
+      ],
+
+      uso: [
+        { n: 1, t: 'Agitá el inhalador y colocalo en el extremo de la aerocámara.' },
+        { n: 2, t: 'Apoyá la máscara sobre nariz y boca, sin dejar espacios.' },
+        { n: 3, t: 'Hacé un solo disparo por aplicación.' },
+        { n: 4, t: 'Mantené la máscara colocada durante varias respiraciones tranquilas.' }
+      ],
+      limpieza: [
+        { n: 1, t: 'Desarmá la aerocámara separando máscara, cuerpo y válvula.' },
+        { n: 2, t: 'Lavá las piezas con agua tibia y jabón neutro.' },
+        { n: 3, t: 'Dejá secar al aire, sin frotar el visor de válvula.' },
+        { n: 4, t: 'Volvé a armarla verificando el botón de seguridad.' }
+      ],
+      videos: ['Uso de aerocámara 1', 'Uso de aerocámara 2', 'Limpieza', 'Conexión ARM', 'Uso de ARM'],
+
+      ciudades: CIUDADES.map(([nombre, n]) => ({
+        nombre, n,
+        open: st.city === nombre,
+        chev: st.city === nombre ? '▴' : '▾',
+        toggle: (e) => { if (e) e.preventDefault(); this.setState(s => ({ city: s.city === nombre ? null : nombre })); },
+        items: [1, 2, 3].slice(0, Math.min(3, n)).map(i => ({ nombre: 'farmacia adherida ' + i, dir: 'dirección pendiente · ' + nombre }))
+      })),
+
+      contactos: [
+        { ic: 'WA', label: 'WhatsApp', valor: 'número pendiente' },
+        { ic: 'TEL', label: 'Teléfono', valor: 'número pendiente' },
+        { ic: '@', label: 'Email', valor: 'email pendiente' },
+        { ic: 'DIR', label: 'Dirección', valor: 'dirección pendiente' }
+      ],
+      form: st.form, err: st.err, sent: st.sent, notSent: !st.sent,
+      setNombre: this.setField('nombre'), setEmail: this.setField('email'), setMsg: this.setField('msg'),
+      styNombre: this.input(!!st.err.nombre), styEmail: this.input(!!st.err.email), styMsg: this.input(!!st.err.msg) + ';resize:vertical;line-height:1.6',
+      submit: this.submit,
+
+      cartCount: count, cartOpen: st.cartOpen, cartLines: lines, cartTotal: money(total),
+      cartEmpty: lines.length === 0, cartHasItems: lines.length > 0,
+      openCart: (e) => { if (e) e.preventDefault(); this.setState({ cartOpen: true }); },
+      closeCart: (e) => { if (e) e.preventDefault(); this.setState({ cartOpen: false }); },
+      goTiendaFromCart: (e) => { if (e) e.preventDefault(); this.setState({ cartOpen: false, screen: 'tienda' }); if (typeof window !== 'undefined') window.scrollTo(0, 0); },
+
+      vpBtns: [['Escritorio', 'desktop'], ['Mobile', 'mobile']].map(([label, v]) => ({
+        label, go: () => this.setState({ vp: v, menuOpen: false }),
+        style: this.pill(st.vp === v, true) + ';padding:6px 13px;font-size:12.5px'
+      })),
+      varBtns: [['A', 'A'], ['B', 'B'], ['C', 'C']].map(([label, v]) => ({
+        label, go: () => this.setState({ variant: v, screen: 'home' }),
+        style: this.pill(st.variant === v, true) + ';padding:6px 13px;font-size:12.5px'
+      }))
+    };
+  }
+}
+
+</script>
+</body>
+</html>
