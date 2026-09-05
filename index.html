@@ -19,12 +19,14 @@
   input,textarea,select,button{font-family:inherit}
   @keyframes spin{to{transform:rotate(360deg)}}
   @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  @keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 </style>
 </helmet>
 
 <div style="font-family:'Source Sans 3',system-ui,sans-serif;font-size:16px;line-height:1.65;color:#122A2C;background:#F6F9F9;min-height:100vh;--pad:56px;--maxw:1220px;--h1:54px;--h2:34px;--h3:22px;--sec:88px">
 
-  <div style="{{ vpVars }}">
+  <div style="{{ vpFrameVars }}">
+   <div style="{{ vpScrollVars }}">
 
     <header style="position:sticky;top:0;z-index:40;background:#122A2C;border-bottom:1px solid rgba(255,255,255,.08)">
       <div style="width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);display:flex;align-items:center;gap:24px;height:72px">
@@ -146,9 +148,9 @@
             <h2 style="font-family:Sora,sans-serif;font-weight:600;font-size:var(--h2);margin:0;letter-spacing:-.015em">Líneas de producto</h2>
             <a href="#" onClick="{{ goTienda }}" style="font-weight:600">Ver toda la tienda →</a>
           </div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:20px">
+          <div style="display:grid;grid-template-columns:{{ lineasGridCols }};gap:20px;justify-content:center">
             <sc-for list="{{ lineas }}" as="l" hint-placeholder-count="3">
-              <div onClick="{{ l.go }}" style="background:#fff;border:1px solid #E3EDED;border-radius:20px;padding:26px;cursor:pointer;display:flex;flex-direction:column;gap:12px;min-height:250px;transition:box-shadow .18s,transform .18s" style-hover="box-shadow:0 14px 34px rgba(18,42,44,.12);transform:translateY(-3px);border-color:#2FB4B8">
+              <div onClick="{{ l.go }}" style="background:#fff;border:1px solid #E3EDED;border-radius:20px;padding:{{ cardPad }};cursor:pointer;display:flex;flex-direction:column;gap:{{ cardGap }};min-height:{{ lineaCardMinH }};transition:box-shadow .18s,transform .18s" style-hover="box-shadow:0 14px 34px rgba(18,42,44,.12);transform:translateY(-3px);border-color:#2FB4B8">
                 <div style="align-self:flex-start;background:#E4F4F4;color:#1F8C90;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:6px 13px;border-radius:999px">{{ l.nombre }}</div>
                 <img src="assets/aerocamara.png" alt="{{ l.nombre }}" style="width:100%;max-width:190px;height:auto;margin:4px 0">
                 <p style="color:#5B6B6C;margin:0;font-size:15.5px">{{ l.desc }}</p>
@@ -226,17 +228,17 @@
           <div style="margin-left:auto;font-size:14.5px;color:#5B6B6C">{{ resultLabel }}</div>
         </div>
 
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,258px),1fr));gap:22px">
+        <div style="display:grid;grid-template-columns:{{ prodGridCols }};gap:{{ prodGridGap }};justify-content:center">
           <sc-for list="{{ productos }}" as="p" hint-placeholder-count="6">
-            <div style="background:#fff;border:1px solid #E3EDED;border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:12px;transition:box-shadow .18s,transform .18s" style-hover="box-shadow:0 14px 34px rgba(18,42,44,.11);transform:translateY(-3px)">
-              <div onClick="{{ p.open }}" style="background:#F6F9F9;border-radius:14px;padding:14px;cursor:pointer;position:relative;display:flex;align-items:center;justify-content:center;min-height:168px">
+            <div style="background:#fff;border:1px solid #E3EDED;border-radius:20px;padding:{{ cardPad }};display:flex;flex-direction:column;gap:{{ cardGap }};transition:box-shadow .18s,transform .18s" style-hover="box-shadow:0 14px 34px rgba(18,42,44,.11);transform:translateY(-3px)">
+              <div onClick="{{ p.open }}" style="background:#F6F9F9;border-radius:14px;padding:{{ cardImgPad }};cursor:pointer;position:relative;display:flex;align-items:center;justify-content:center;min-height:{{ cardImgMinH }}">
                 <span style="position:absolute;top:12px;left:12px;background:#E4F4F4;color:#1F8C90;font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:5px 11px;border-radius:999px">{{ p.linea }}</span>
                 <img src="assets/aerocamara.png" alt="{{ p.nombre }}" style="width:100%;max-width:158px;height:auto">
               </div>
-              <a href="#" onClick="{{ p.open }}" style="font-family:Sora,sans-serif;font-weight:600;font-size:17px;color:#122A2C;line-height:1.3" style-hover="color:#1F8C90">{{ p.nombre }}</a>
+              <a href="#" onClick="{{ p.open }}" style="font-family:Sora,sans-serif;font-weight:600;font-size:{{ cardNameSize }};color:#122A2C;line-height:1.3" style-hover="color:#1F8C90">{{ p.nombre }}</a>
               <div style="font-size:13.5px;color:#5B6B6C">{{ p.edadLabel }}</div>
               <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:{{ p.stockColor }}"><span style="width:8px;height:8px;border-radius:50%;background:{{ p.stockColor }};display:inline-block"></span>{{ p.stockLabel }}</div>
-              <div style="font-family:Sora,sans-serif;font-weight:600;font-size:21px;margin-top:auto">{{ p.precio }}</div>
+              <div style="font-family:Sora,sans-serif;font-weight:600;font-size:{{ cardPriceSize }};margin-top:auto">{{ p.precio }}</div>
               <button onClick="{{ p.add }}" disabled="{{ p.agotado }}" style="{{ p.btnStyle }}">{{ p.btnLabel }}</button>
               <sc-if value="{{ p.agotado }}" hint-placeholder-val="{{ false }}"><a href="#" onClick="{{ goContacto }}" style="font-size:13.5px;text-align:center">Avisarme cuando vuelva a haber stock</a></sc-if>
             </div>
@@ -420,7 +422,7 @@
       <section style="background:#F6F9F9;padding:var(--sec) 0">
         <div style="width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)">
           <h2 style="font-family:Sora,sans-serif;font-weight:600;font-size:var(--h2);margin:0 0 26px;letter-spacing:-.015em">Videos útiles</h2>
-          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));gap:20px">
+          <div style="display:grid;grid-template-columns:{{ videoGridCols }};gap:20px;justify-content:center">
             <sc-for list="{{ videos }}" as="v" hint-placeholder-count="5">
               <div style="background:#fff;border:1px solid #E3EDED;border-radius:18px;overflow:hidden;cursor:pointer;transition:box-shadow .18s,transform .18s" style-hover="box-shadow:0 14px 30px rgba(18,42,44,.11);transform:translateY(-3px)">
                 <div style="height:142px;background:repeating-linear-gradient(135deg,#EDF4F4 0 10px,#E3EDED 10px 20px);display:flex;align-items:center;justify-content:center;position:relative">
@@ -762,8 +764,8 @@
     </main>
 
     <footer style="background:#122A2C;color:#B7CDCE;padding:56px 0 30px">
-      <div style="width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:36px">
-        <div>
+      <div style="width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);display:grid;grid-template-columns:{{ footerGridCols }};gap:36px">
+        <div style="{{ footerBrandSpan }}">
           <img src="assets/logo-aerospacer.png" alt="Aerospacer" style="height:24px;filter:brightness(1.18)">
           <p style="margin:16px 0 0;font-size:15px;max-width:34ch">Aerocámaras bivalvuladas de diseño patentado, fabricadas en Argentina por Patejim.</p>
           <img src="assets/logo-patejim.png" alt="Patejim" style="height:44px;margin-top:18px;filter:brightness(1.5) grayscale(.15)">
@@ -795,13 +797,14 @@
       </div>
       <div style="width:100%;max-width:var(--maxw);margin:34px auto 0;padding:20px var(--pad) 0;border-top:1px solid rgba(255,255,255,.08);font-size:13.5px;color:#7E9899">© 2026 Patejim · Aerospacer</div>
     </footer>
-  </div>
+   </div>
 
   <!-- Carrito -->
   <sc-if value="{{ cartOpen }}" hint-placeholder-val="{{ false }}">
     <div>
-      <div onClick="{{ closeCart }}" style="position:fixed;inset:0;background:rgba(9,26,27,.5);z-index:60"></div>
-      <aside style="position:fixed;top:0;right:0;bottom:0;width:min(100%,400px);background:#fff;z-index:61;display:flex;flex-direction:column;box-shadow:-14px 0 40px rgba(9,26,27,.25);animation:fadeUp .18s ease">
+      <div onClick="{{ closeCart }}" style="position:{{ cartPosMode }};inset:0;background:rgba(9,26,27,.5);z-index:60"></div>
+      <aside style="position:{{ cartPosMode }};top:{{ cartTop }};left:{{ cartLeft }};right:{{ cartRight }};bottom:0;width:{{ cartWidth }};max-height:{{ cartMaxH }};background:#fff;z-index:61;display:flex;flex-direction:column;box-shadow:{{ cartShadowVal }};border-radius:{{ cartRadiusVal }};transform:{{ cartTransform }};transition:transform .26s ease">
+        <div style="{{ cartGrabber }}"></div>
         <div style="padding:22px 24px;border-bottom:1px solid #E3EDED;display:flex;align-items:center;justify-content:space-between">
           <div style="font-family:Sora,sans-serif;font-weight:600;font-size:19px">Tu carrito</div>
           <button onClick="{{ closeCart }}" style="background:none;border:none;font-size:24px;color:#5B6B6C;cursor:pointer;line-height:1">×</button>
@@ -848,6 +851,8 @@
     </div>
   </sc-if>
 
+  </div>
+
   <!-- Panel de revisión -->
   <div style="position:fixed;bottom:16px;left:16px;z-index:80;background:rgba(18,42,44,.94);color:#fff;border-radius:14px;padding:12px 14px;display:flex;gap:16px;align-items:center;box-shadow:0 10px 30px rgba(9,26,27,.35);font-size:13px;backdrop-filter:blur(6px)">
     <div style="display:flex;gap:7px;align-items:center"><span style="color:#8FA8A9">Vista</span><sc-for list="{{ vpBtns }}" as="b" hint-placeholder-count="2"><button onClick="{{ b.go }}" style="{{ b.style }}">{{ b.label }}</button></sc-for></div>
@@ -886,6 +891,7 @@ class Component extends DCLogic {
     menuOpen: false,
     cart: {},
     cartOpen: false,
+    cartAnimIn: false,
     fLinea: 'todas',
     fEdad: 'todos',
     prodId: 'p2',
@@ -923,6 +929,12 @@ class Component extends DCLogic {
   }
 
   onResize = () => this.setState({ winW: window.innerWidth });
+
+  showCart = () => {
+    this.setState({ cartOpen: true, cartAnimIn: false });
+    setTimeout(() => this.setState({ cartAnimIn: true }), 20);
+  };
+  hideCart = () => this.setState({ cartOpen: false, cartAnimIn: false });
 
   componentWillUnmount() {
     if (typeof window !== 'undefined') window.removeEventListener('resize', this.onResize);
@@ -963,6 +975,8 @@ class Component extends DCLogic {
         cart[p.id] = (cart[p.id] || 0) + n;
         return { cart, adding: null, cartOpen: true };
       });
+      this.setState({ cartAnimIn: false });
+      setTimeout(() => this.setState({ cartAnimIn: true }), 20);
     }, 550);
   }
 
@@ -1022,6 +1036,8 @@ class Component extends DCLogic {
     const st = this.state;
     const mobile = st.vp === 'mobile';
     const collapsed = mobile || (st.winW || 1280) < 1040;
+    const narrow = mobile || (st.winW || 1280) < 480;
+    const twoCol = 'repeat(2,1fr)';
     const nav = [
       ['Comprar', 'tienda'], ['Beneficios', 'beneficios'],
       ['Nosotros', 'nosotros'], ['Dónde comprar', 'donde'], ['Contacto', 'contacto']
@@ -1053,9 +1069,21 @@ class Component extends DCLogic {
     }));
 
     return {
-      vpVars: mobile
-        ? { width: '412px', margin: '20px auto', height: '860px', overflowY: 'auto', overflowX: 'hidden', background: '#fff', borderRadius: '30px', border: '10px solid #0E2223', boxShadow: '0 24px 60px rgba(9,26,27,.3)', position: 'relative', '--pad': '20px', '--maxw': '100%', '--h1': '33px', '--h2': '25px', '--h3': '19px', '--sec': '48px' }
+      vpFrameVars: mobile
+        ? { width: '412px', margin: '20px auto', height: '860px', overflow: 'hidden', background: '#fff', borderRadius: '30px', border: '10px solid #0E2223', boxShadow: '0 24px 60px rgba(9,26,27,.3)', position: 'relative' }
         : {},
+      vpScrollVars: mobile
+        ? { height: '100%', overflowY: 'auto', overflowX: 'hidden', '--pad': '20px', '--maxw': '100%', '--h1': '33px', '--h2': '25px', '--h3': '19px', '--sec': '48px' }
+        : {},
+      cartPosMode: mobile ? 'absolute' : 'fixed',
+      cartTop: mobile ? 'auto' : '0',
+      cartLeft: mobile ? '0' : 'auto',
+      cartRight: mobile ? '0' : '0',
+      cartWidth: mobile ? '100%' : 'min(100%,400px)',
+      cartMaxH: mobile ? '82%' : 'none',
+      cartShadowVal: mobile ? '0 -14px 40px rgba(9,26,27,.25)' : '-14px 0 40px rgba(9,26,27,.25)',
+      cartRadiusVal: mobile ? '20px 20px 0 0' : '0',
+      cartGrabber: mobile ? 'width:40px;height:5px;border-radius:999px;background:#DDE9E9;margin:10px auto 0;flex:none' : 'display:none',
       navDisplay: collapsed ? 'none' : 'flex',
       accountStyle: 'display:' + (collapsed ? 'none' : 'block') + ';background:transparent;border:1px solid rgba(255,255,255,.14);color:' +
         (st.screen === 'cuenta' ? PRIMARY : '#D6E7E7') + ';padding:9px 16px;border-radius:999px;cursor:pointer;font-size:14.5px;font-weight:600;white-space:nowrap',
@@ -1070,6 +1098,19 @@ class Component extends DCLogic {
       isHome: st.screen === 'home', isTienda: st.screen === 'tienda', isFicha: st.screen === 'ficha',
       isBeneficios: st.screen === 'beneficios', isDonde: st.screen === 'donde', isContacto: st.screen === 'contacto',
       isNosotros: st.screen === 'nosotros', goNosotros: this.go('nosotros'),
+      lineasGridCols: narrow ? twoCol : 'repeat(auto-fit,minmax(min(100%,260px),1fr))',
+      prodGridCols: narrow ? twoCol : 'repeat(auto-fill,minmax(min(100%,258px),1fr))',
+      prodGridGap: narrow ? '14px' : '22px',
+      cardPad: narrow ? '12px' : '18px',
+      cardGap: narrow ? '8px' : '12px',
+      cardImgPad: narrow ? '10px' : '14px',
+      cardImgMinH: narrow ? '128px' : '168px',
+      cardNameSize: narrow ? '15px' : '17px',
+      cardPriceSize: narrow ? '18px' : '21px',
+      lineaCardMinH: narrow ? '210px' : '250px',
+      videoGridCols: narrow ? twoCol : 'repeat(auto-fill,minmax(min(100%,240px),1fr))',
+      footerGridCols: narrow ? twoCol : 'repeat(auto-fit,minmax(min(100%,200px),1fr))',
+      footerBrandSpan: narrow ? 'grid-column:span 2' : '',
       nosotrosFeats1: [
         'Única con visor de válvula patentado',
         'Única con válvula de inhalación de silicona',
@@ -1229,11 +1270,13 @@ class Component extends DCLogic {
       styNombre: this.input(!!st.err.nombre), styEmail: this.input(!!st.err.email), styMsg: this.input(!!st.err.msg) + ';resize:vertical;line-height:1.6',
       submit: this.submit,
 
+      cartAnimIn: st.cartAnimIn,
+      cartTransform: mobile ? (st.cartAnimIn ? 'translateY(0)' : 'translateY(100%)') : (st.cartAnimIn ? 'translateX(0)' : 'translateX(100%)'),
       cartCount: count, cartOpen: st.cartOpen, cartLines: lines, cartTotal: money(total),
       cartEmpty: lines.length === 0, cartHasItems: lines.length > 0,
-      openCart: (e) => { if (e) e.preventDefault(); this.setState({ cartOpen: true }); },
-      closeCart: (e) => { if (e) e.preventDefault(); this.setState({ cartOpen: false }); },
-      goTiendaFromCart: (e) => { if (e) e.preventDefault(); this.setState({ cartOpen: false, screen: 'tienda' }); if (typeof window !== 'undefined') window.scrollTo(0, 0); },
+      openCart: (e) => { if (e) e.preventDefault(); this.showCart(); },
+      closeCart: (e) => { if (e) e.preventDefault(); this.hideCart(); },
+      goTiendaFromCart: (e) => { if (e) e.preventDefault(); this.hideCart(); this.setState({ screen: 'tienda' }); if (typeof window !== 'undefined') window.scrollTo(0, 0); },
 
       vpBtns: [['Escritorio', 'desktop'], ['Mobile', 'mobile']].map(([label, v]) => ({
         label, go: () => this.setState({ vp: v, menuOpen: false }),
